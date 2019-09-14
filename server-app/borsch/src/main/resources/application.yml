@@ -1,0 +1,6 @@
+cassandra:
+  jmx-enabled: false
+  port: 9142
+  host: 127.0.0.1
+  keyspace: testspace
+  schema-action: create_if_not_exists
