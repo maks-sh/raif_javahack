@@ -17,6 +17,10 @@
 
 # Наша команда
 
+<p align="center">
+  <img src="presentations/imgs/Borsch_logo.png" alt="райффайзен"/>
+</p>
+
 1. [Денис Меркушин](https://github.com/DenRUS) Backend-разработчик
 2. [Сергей Курочкин](https://github.com/kurochkinSergei) Frontend-разработчик
 3. [Максим Шевченко](https://github.com/maks-sh) Продукт-менеджер, аналитик
