@@ -8,10 +8,11 @@
 * Хакатон для начинающих Java-разработчиков, дизайнеров, аналитиков и менеджеров digital-продуктов.
 * **Задача участников**: за 2 дня разработать прототип цифрового решения для клиентов банка с интеграцией сторонних сервисов.
 
-# Предварительный анализ от организоторов
+# Презентации от организоторов (предварительный анализ и задача)
 
-1. [Обзор рынка SME & физюриков](./presentations/Java_Hack_opros_FizYuriki.pdf)
-2. [Физикоюрики U&A](./presentations/Java_Hack_analitika_po_SME_final.pdf)
+1. [Формулировка задачи, критерии, etc](./presentations/RBRU_JavaHack_deck_v4.pdf)
+2. [Анализ: Обзор рынка SME & физюриков](./presentations/Java_Hack_opros_FizYuriki.pdf)
+3. [Анализ: Физикоюрики U&A](./presentations/Java_Hack_analitika_po_SME_final.pdf)
 
 
 # Наша команда
