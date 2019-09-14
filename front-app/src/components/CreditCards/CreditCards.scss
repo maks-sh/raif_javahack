@@ -10,6 +10,12 @@
   }
 }
 
+.active-card {
+  .rccs__card--front {
+    box-shadow: 0 0 0 5px black;
+  }
+}
+
 .color-peachyPink {
   .rccs__card--front {
     background: #f39b9a !important;

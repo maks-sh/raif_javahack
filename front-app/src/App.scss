@@ -19,17 +19,18 @@
   display: flex;
 }
 
+.second-row {
+  margin: 0 50px;
+}
+
 .yellow-btn.yellow-btn {
   background-color: $raif-yellow;
-  color: #000; 
+  color: #000;
+  margin-top: 20px;
 
   &:hover {
     color: white;
   }
-}
-
-.user-info {
-  flex: 1;
 }
 
 div, header {

@@ -1,0 +1,21 @@
+@import '../../constants.scss';
+
+.user-info {
+  flex: 1;
+  padding: 10px 30px;
+  border-left: #000 1px solid;
+
+  .info-item {
+    margin-bottom: 5px;
+  }
+
+  .user-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+    border: 5px solid $raif-yellow;
+    background: url('./business-woman.jpg');
+    background-size: contain;
+    margin-bottom: 20px;
+  }
+}
