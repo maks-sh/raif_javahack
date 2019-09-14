@@ -4,6 +4,7 @@ import { AccentButton, Tag, Badge, Tabs, TabPane } from 'storybook-directual';
 import CreditCards from '../CreditCards/CreditCards';
 import './index.scss';
 import CardsList from '../CardsList/CardsList';
+import Chat from '../Chat/Chat';
 
 type Props = {
   headerText: string;
@@ -39,8 +40,55 @@ class RecommendedPageContent extends Component<Props> {
         headerComment: "поставщик шоколада",
         fullDescription: 'текст',
         tags: [
-          {text: 'Котики'},
-          {text: 'Собачки'},
+          { text: 'Котики' },
+          { text: 'Собачки' },
+        ]
+      },
+    ],
+    chats: [
+      {
+        id: '11',
+        user: {
+          title: "ИП Мопс Анна Николаевна",
+          desc: "поставщик шоколада",
+          image: {
+            url: 'https://images.dog.ceo/breeds/clumber/n02101556_3333.jpg',
+          }
+        },
+        messages: [
+          {
+            id: new Date().getTime(),
+            timestamp: 1568482760101,
+            text: 'Здравствуйте!',
+            type: 0,
+          },
+          {
+            id: new Date().getTime(),
+            timestamp: 1568482760102,
+            text: 'И вам привет от Елены!',
+            type: 1
+          },
+        ]
+      },
+      {
+        id: '22',
+        user: {
+          title: "ИП Виталик",
+          desc: "поставщик муки",
+        },
+        messages: [
+          {
+            id: new Date().getTime(),
+            timestamp: 1568482760101,
+            text: 'Это Елена!',
+            type: 1,
+          },
+          {
+            id: new Date().getTime(),
+            timestamp: 1568482760102,
+            text: 'И вам привет!',
+            type: 0,
+          },
         ]
       },
     ]
@@ -55,10 +103,9 @@ class RecommendedPageContent extends Component<Props> {
   render() {
     return (
       <div className="recommended-content">
-        <Tabs defaultActiveKey="1">
+        <Tabs defaultActiveKey="2">
           {/* <TabPane tab={<Badge count={8}>Новые рекомендации</Badge>} tabKey="1"> */}
           <TabPane tab="Новые рекомендации" tabKey="1">
-          
             <div className="Header_32-40_Black">Возможные поставщики <Badge count={8}></Badge></div>
             <CardsList recommended={this.state.recommended} />
 
@@ -67,7 +114,7 @@ class RecommendedPageContent extends Component<Props> {
             <CardsList /> */}
           </TabPane>
           <TabPane tab="Активные рекомендации" tabKey="2">
-            <div className="Header_32-40_Black">Активные рекомендации</div>
+            <Chat chats={this.state.chats} />
           </TabPane>
         </Tabs>
       </ div>

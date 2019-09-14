@@ -9,6 +9,7 @@
   padding: 0 40px;
   padding-top: 10px;
   margin-bottom: 30px;
+  height: 100px;
 }
 
 .logos {
@@ -36,5 +37,8 @@
 
 
 .header-text {
+  position: absolute;
+  top: 12px;
+  left: 300px;
   // margin-left: 40px;
 }

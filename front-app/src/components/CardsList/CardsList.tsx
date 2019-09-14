@@ -25,7 +25,7 @@ class CardsList extends Component<Props> {
       console.log(response)
     })
 
-    this.forceUpdate();
+    // this.forceUpdate();
   }
 
   showModal = (recomendation: any) => (): void => {
