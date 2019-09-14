@@ -10,3 +10,28 @@
   flex-direction: column;
   align-items: center;
 }
+
+.content-wrapper {
+  width:100%;
+}
+
+.first-row {
+  display: flex;
+}
+
+.yellow-btn.yellow-btn {
+  background-color: $raif-yellow;
+  color: #000; 
+
+  &:hover {
+    color: white;
+  }
+}
+
+.user-info {
+  flex: 1;
+}
+
+div, header {
+  box-sizing: border-box;
+}

@@ -1,18 +1,27 @@
 import React from 'react';
-import { Button, Colors } from 'storybook-directual';
+import { Button, Colors, AccentButton, Modal } from 'storybook-directual';
 
+import ModalComponent from '../components/Modal/Modal';
+import CreditCards from '../components/CreditCards/CreditCards';
 import { withRouter } from "react-router";
+import PageHeader from '../components/PageHeader/PageHeader';
 
 
 const HomePage = withRouter(({ history }) => {
-  const startNewSplit = (): void => {
-    history.push('/newSplit');
-  };
-
   return (
     <div className="content-wrapper main">
-        <h1 className="Header_32-40_Black">Главная страница</h1>
-        <Button>sdsd</Button>
+        <PageHeader headerText="Главная страница"/>
+        <div className="first-row">
+          <CreditCards />
+          <div className="user-info">
+            <div className="Subheader_14-24_Black">
+              Евгений Жучковский
+            </div>
+            <div  className="">Индивидуальный предприниматель</div>
+            <AccentButton className="yellow-btn">Мои реккомендации</AccentButton>
+          </div>
+        </div>
+        <ModalComponent />
     </div>
   );
 });
