@@ -9,18 +9,21 @@ import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyClass;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 
-import java.io.Serializable;
 import java.util.UUID;
 
+@Data
 @PrimaryKeyClass
 @EqualsAndHashCode
-@Data
 @AllArgsConstructor
-public class CardTransactionId implements Serializable {
-    @PrimaryKeyColumn(name = "card_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-    private UUID cardId;
+public class ChatMessageId {
+    @PrimaryKeyColumn(name = "request_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
+    private UUID requestId;
 
-    @PrimaryKeyColumn(name = "transaction_id", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
+    @PrimaryKeyColumn(name = "user_id", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
+    @CassandraType(type = DataType.Name.UUID)
+    private UUID userId;
+
+    @PrimaryKeyColumn(name = "message_id", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
     @CassandraType(type = DataType.Name.TIMEUUID)
-    private UUID transactionId;
+    private UUID msgId;
 }

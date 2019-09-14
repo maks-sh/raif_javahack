@@ -1,25 +1,42 @@
 package javahack.raif.borsch.domain;
 
+import com.datastax.driver.core.DataType;
 import javahack.raif.borsch.domain.ids.CardTransactionId;
+import javahack.raif.borsch.enums.TransactionStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.cassandra.core.mapping.CassandraType;
+import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-@Table("card_transaction")
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
+@Table("card_transaction")
 public class CardTransaction {
-
-
     @PrimaryKey
     private CardTransactionId id;
-//    @PrimaryKeyColumn(name = "card_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-//    private UUID cardId;
-//
-//    //timeuuid
-//    @PrimaryKeyColumn(name = "transactionId", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
-//    private UUID transactionId;
+    @Column("amount")
+    private Double amount;
+    @Column("status")
+    @CassandraType(type = DataType.Name.TEXT)
+    private TransactionStatusEnum status;
+    @Column("date")
+    private LocalDate date;
+    @Column("changed")
+    private LocalDateTime changed;
+    @Column("message")
+    private String bankMessage;
+    @Column("receiver_name")
+    private String receiverName;
+    @Column("receiver_id")
+    private UUID receiverId;
+    @Column("payment_purpose")
+    private String paymentPurpose;
 
 
 }

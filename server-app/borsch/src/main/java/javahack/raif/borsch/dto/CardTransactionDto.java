@@ -1,5 +1,6 @@
 package javahack.raif.borsch.dto;
 
+import javahack.raif.borsch.domain.CardTransaction;
 import javahack.raif.borsch.enums.TransactionStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class CardTransactionDto {
 
     //timeUUID
     private UUID id;
+    private UUID cardId;
     private Double amount;
     private TransactionStatusEnum status;
     private LocalDate date;
@@ -27,4 +29,16 @@ public class CardTransactionDto {
     private UUID receiverId;
     private String paymentPurpose;
 
+    public CardTransactionDto(CardTransaction thx) {
+        this.id = thx.getId().getTransactionId();
+        this.cardId = thx.getId().getCardId();
+        this.amount = thx.getAmount();
+        this.status = thx.getStatus();
+        this.date = thx.getDate();
+        this.changed = thx.getChanged();
+        this.bankMessage = thx.getBankMessage();
+        this.receiverName = thx.getReceiverName();
+        this.receiverId = thx.getReceiverId();
+        this.paymentPurpose = thx.getPaymentPurpose();
+    }
 }

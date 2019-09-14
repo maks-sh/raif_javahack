@@ -16,11 +16,15 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Data
 @AllArgsConstructor
-public class CardTransactionId implements Serializable {
-    @PrimaryKeyColumn(name = "card_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-    private UUID cardId;
+public class CollaborationRequestId implements Serializable {
+    @PrimaryKeyColumn(name = "user_to_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
+    private UUID userToId;
 
-    @PrimaryKeyColumn(name = "transaction_id", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
-    @CassandraType(type = DataType.Name.TIMEUUID)
-    private UUID transactionId;
+    @PrimaryKeyColumn(name = "user_from_id", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
+    @CassandraType(type = DataType.Name.UUID)
+    private UUID userFromId;
+
+    @PrimaryKeyColumn(name = "id", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
+    @CassandraType(type = DataType.Name.UUID)
+    private UUID id;
 }

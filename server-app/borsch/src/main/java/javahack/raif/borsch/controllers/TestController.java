@@ -1,21 +1,10 @@
 package javahack.raif.borsch.controllers;
 
-import javahack.raif.borsch.domain.User;
-import javahack.raif.borsch.repo.UserRepo;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.cassandra.core.CassandraAdminTemplate;
-import org.springframework.data.cassandra.core.cql.CqlIdentifier;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.apache.logging.log4j.LogManager;
-
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Тестовое апи.

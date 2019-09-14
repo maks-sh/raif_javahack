@@ -1,6 +1,14 @@
 cassandra:
-  jmx-enabled: false
+  port: todo
+  host: todo
+  keyspace: todo
+spring:
+  profiles:
+    active: local
+---
+spring:
+     profiles: local
+cassandra:
   port: 9142
   host: 127.0.0.1
   keyspace: testspace
-  schema-action: create_if_not_exists

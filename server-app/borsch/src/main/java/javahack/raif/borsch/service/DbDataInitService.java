@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.reflections.Reflections;
 import org.springframework.data.cassandra.core.CassandraAdminTemplate;
 import org.springframework.data.cassandra.core.cql.CqlIdentifier;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -29,8 +31,12 @@ public class DbDataInitService {
 
     @PostConstruct
     public void createTables() {
-        createTableForEntity(User.class);
-        createTableForEntity(CardTransaction.class);
+        Reflections reflections = new Reflections("my.project.prefix");
+
+        Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
+        allClasses.stream()
+                .filter(clazz -> clazz.isAnnotationPresent(Table.class))
+                .forEach(this::createTableForEntity);
         LOG.info("Все таблицы созданы");
     }
 
