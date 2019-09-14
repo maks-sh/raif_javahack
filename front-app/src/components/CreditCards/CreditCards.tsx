@@ -15,11 +15,11 @@ type Props = {
 
 interface Card {
   id: string,
-  number: string,
-  name: string,
-  expiry: string,
-  focused: boolean,
-  cvc: string,
+  number?: string,
+  name?: string,
+  expiry?: string,
+  focused?: boolean,
+  cvc?: string,
   color?: string,
   funds?: string,
 }

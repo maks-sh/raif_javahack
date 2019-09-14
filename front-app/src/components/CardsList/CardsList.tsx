@@ -4,7 +4,7 @@ import { Modal, CardImaged, Button, AccentButton, Tag, IconButton } from 'storyb
 import get from 'lodash/get';
 
 import './index.scss';
-import { getDogs } from '../../utils/http';
+import { getDogs, getUserImages } from '../../utils/http';
 
 type Props = {
   recommended: any;
@@ -13,19 +13,19 @@ type Props = {
 class CardsList extends Component<Props> {
   state = {
     message: [],
+    images: [],
     showModal: false,
     activeRecomendation: null,
   }
 
   componentDidMount() {
-    getDogs().then((response) => {
-      this.setState({
-        message: response.message,
-      })
-      console.log(response)
-    })
+    getUserImages().then((response) => {
+      const images = response.results.map((user: any) => user.picture.large);
 
-    // this.forceUpdate();
+      this.setState({
+        images,
+      });
+    });
   }
 
   showModal = (recomendation: any) => (): void => {
@@ -68,10 +68,13 @@ class CardsList extends Component<Props> {
     return (
       <div className="recommended-list-wrapper">
         <div className="recommended-list">
-          {this.props.recommended.map((rec: any) => (
+          {this.props.recommended.map((rec: any, index: number) => (
             <div onClick={this.showModal(rec)}>
               <CardImaged
-                image={rec.image}
+                // image={rec.image}
+                image={{
+                  url: this.state.images[index],
+                }}
                 header={rec.header}
                 headerComment={(
                 <div>

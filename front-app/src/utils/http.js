@@ -55,3 +55,23 @@ export function getDogs() {
       console.error(err);
     });
 }
+
+export function getUserImages() {
+  const url = `https://randomuser.me/api/?results=10`
+  const options = {
+    method: 'GET',
+    // body: JSON.stringify({
+    //   email,
+    //   userName,
+    // }),
+    // headers: makeHeaders(),
+  }
+
+  return fetch(url, options)
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}

@@ -3,6 +3,7 @@ import { AccentButton, Tag, Badge } from 'storybook-directual';
 // import ModalComponent from '../Modal/Modal';
 import CreditCards from '../CreditCards/CreditCards';
 import './index.scss';
+import Table from '../Table/Table';
 
 type Props = {
   headerText: string;
@@ -65,8 +66,6 @@ class HomePageContent extends Component<Props> {
         number: '1234 **** **** 1121',
         name: 'MR. PUPA',
         expiry: '123',
-        focused: false,
-        cvc: '',
         funds: '58 300 руб.'
         // issuer: 'visa',
       },
@@ -75,8 +74,6 @@ class HomePageContent extends Component<Props> {
         number: '1234 **** **** 1121',
         name: 'MR. LUPA',
         expiry: '123',
-        focused: false,
-        cvc: '',
         funds: '124 138 руб.'
         // issuer: 'visa',
       },
@@ -127,50 +124,10 @@ class HomePageContent extends Component<Props> {
               История операций
             </div>
 
-            <table style={{
-              borderSpacing: '0 5px',
-            }}>
-              <thead style={{
-                color:'#8E8E8E',
-                fontSize: '18px',
-              }}>
-                <tr>
-                  {columns.map((col) => (
-                  <td
-                    id={col.key}
-                    style={{
-                      width: col.width,
-                    }}
-                    // className="Subheader_14-24_Black"
-                  >
-                    {col.title}
-                  </td>))}
-                </tr>
-              </thead>
-
-              <tbody>
-                {dataSource[this.state.activeCard].map((row: any) => {
-                  return (
-                    <tr
-                      style={{
-                        fontSize: '16px',
-                      }}
-                    >
-                     {columns.map((col: any) => (
-                      <td
-                        id={col.key}
-                        style={{
-                          width: col.width,
-                        }}
-                        // className="Subheader_14-24_Black"
-                      >
-                        {row[col.key]}
-                      </td>))}
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+            <Table
+              dataSource={dataSource[this.state.activeCard]}
+              columns={columns}
+            />
           </div>
         }
       </>

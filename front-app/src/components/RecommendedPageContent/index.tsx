@@ -5,6 +5,7 @@ import CreditCards from '../CreditCards/CreditCards';
 import './index.scss';
 import CardsList from '../CardsList/CardsList';
 import Chat from '../Chat/Chat';
+import Table from '../Table/Table';
 
 type Props = {
   headerText: string;
@@ -103,17 +104,18 @@ class RecommendedPageContent extends Component<Props> {
   render() {
     return (
       <div className="recommended-content">
-        <Tabs defaultActiveKey="2">
+        <Tabs defaultActiveKey="1">
           {/* <TabPane tab={<Badge count={8}>Новые рекомендации</Badge>} tabKey="1"> */}
           <TabPane tab="Новые рекомендации" tabKey="1">
             <div className="Header_32-40_Black">Возможные поставщики <Badge count={8}></Badge></div>
             <CardsList recommended={this.state.recommended} />
-
-
-            {/* <div className="Header_32-40_Black">Возможные покупатели</div>
-            <CardsList /> */}
           </TabPane>
-          <TabPane tab="Активные рекомендации" tabKey="2">
+          <TabPane tab="Заявки" tabKey="2">
+            <div className="Header_32-40_Black">Заявки <Badge count={8}></Badge></div>
+            <Table dataSource={[]} columns={[]} />
+            {/* <CardsList recommended={this.state.recommended} /> */}
+          </TabPane>
+          <TabPane tab="Активные сотрудничества" tabKey="3">
             <Chat chats={this.state.chats} />
           </TabPane>
         </Tabs>

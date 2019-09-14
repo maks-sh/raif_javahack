@@ -4,7 +4,6 @@ import { Icon, Input, IconButton } from 'storybook-directual';
 import get from 'lodash/get';
 
 import './index.scss';
-import { getDogs } from '../../utils/http';
 
 type Props = {
   chats: any;
@@ -16,14 +15,6 @@ class Chat extends Component<Props> {
     message: '',
   };
 
-  // componentDidMount() {
-  //   getDogs().then((response) => {
-  //     this.setState({
-  //       message: response.message,
-  //     })
-  //     console.log(response)
-  //   })
-  // }
   activateChat = (chat: any) => () => {
     this.setState({
       activeChat: chat,
@@ -75,7 +66,7 @@ class Chat extends Component<Props> {
               className="chat-item"
               onClick={this.activateChat(chat)}
             >
-              {/* <div className="chat-icon"></div> */}
+              <div className="chat-icon"></div>
               <div className="chat-title Subheader_14-24_Black">{title}</div>
               <div className="chat-desc Subheader_14">{desc}</div>
               <div className="chat-last-msg Comment_12-16">
