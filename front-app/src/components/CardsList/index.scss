@@ -1,0 +1,39 @@
+.recommended-list-wrapper {
+  padding: 0 50px;
+}
+
+.recommended-list {
+  margin-bottom: 30px;
+  padding: 20px 0;
+  display: flex;
+  // width: 1000px;
+  // height: 500px;
+  overflow-x: auto;
+  overflow-y: hidden; 
+
+  .card-default {
+    width: 350px;
+    flex: 0 0 350px;
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 5px;
+
+      button {
+        margin: 2px 0;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .card-controls {
+    margin: 10px 20px;
+    display: flex;
+    flex-flow: row-reverse;
+  }
+}

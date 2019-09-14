@@ -103,7 +103,7 @@ class HomePageContent extends Component<Props> {
 
             <div className="user-photo"/>
             <div className="info-item Subheader_14-24_Black">
-              Евгения Жуковская
+              Елена Жуковская
             </div>
             <div className="info-item Subheader_14">Индивидуальный предприниматель</div>
 

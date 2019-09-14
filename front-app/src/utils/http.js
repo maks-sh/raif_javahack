@@ -35,3 +35,23 @@ export function authorize({ email, userName }) {
       console.error(err);
     });
 }
+
+export function getDogs() {
+  const url = `https://dog.ceo/api/breeds/image/random/3`
+  const options = {
+    method: 'GET',
+    // body: JSON.stringify({
+    //   email,
+    //   userName,
+    // }),
+    // headers: makeHeaders(),
+  }
+
+  return fetch(url, options)
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
