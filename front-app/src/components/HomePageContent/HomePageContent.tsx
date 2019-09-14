@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AccentButton } from 'storybook-directual';
+import { AccentButton, Tag, Badge } from 'storybook-directual';
 // import ModalComponent from '../Modal/Modal';
 import CreditCards from '../CreditCards/CreditCards';
 import './index.scss';
@@ -48,6 +48,11 @@ const dataSource:any = {
   ],
 }
 
+const tags = [
+  'Малый бизнес',
+  'Торговля',
+  'Кондитер',
+]
 
 class HomePageContent extends Component<Props> {
   static defaultProps: Props;
@@ -102,10 +107,14 @@ class HomePageContent extends Component<Props> {
             </div>
             <div className="info-item Subheader_14">Индивидуальный предприниматель</div>
 
-            <div>
-              
+            <div className="user-tags">
+              {
+                tags.map(tag => (<Tag style={{ color:'#fff' }} colorGroup="2-4">{tag}</Tag>))
+              }
             </div>
-            <AccentButton className="yellow-btn">Мои рекомендации</AccentButton>
+            {/* <Badge count={8}>
+              <AccentButton className="yellow-btn">Мои рекомендации</AccentButton>
+            </Badge> */}
           </div>
         </div>
 

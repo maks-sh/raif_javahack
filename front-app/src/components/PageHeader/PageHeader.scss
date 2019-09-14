@@ -7,12 +7,15 @@
   justify-content: space-between;
   border-bottom: 5px solid $raif-yellow;
   padding: 0 40px;
+  padding-top: 10px;
   margin-bottom: 30px;
 }
 
 .logos {
   display: flex;
+  min-width: 190px;
   align-items: center;
+
   .header-logo {
     height: 50px;
     margin: 0 10px;
@@ -20,6 +23,14 @@
     &.raif {
       height: 35px;
     }
+  }
+}
+
+.navbar {
+  display: flex;
+
+  .navbutton {
+    margin-right: 20px;
   }
 }
 
