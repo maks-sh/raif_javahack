@@ -43,9 +43,9 @@ class Modal extends Component<Props> {
             <Button key="2222" onClick={this.hideModal}>Cancel</Button>,
           ]}
           // onClick={() => {}}
-          columnsNumber={2}
+          columnsNumber={1}
           column1={(<p>[Verse 1]</p>)}
-          column2={(<p>[Verse 1]</p>)}
+          // column2={(<p>[Verse 1]</p>)}
         />
       </div>
     )

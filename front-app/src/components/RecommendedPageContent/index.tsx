@@ -25,13 +25,13 @@ class RecommendedPageContent extends Component<Props> {
         headerComment: "поставщик шоколада",
         fullDescription: 'текст',
         tags: [
+          {text: 'Это реклама', type: 'advert'},
           {text: 'Котики'},
           {text: 'Собачки'},
-          {text: 'Это реклама', type: 'advert'},
         ]
       },
       {
-        id: '1',
+        id: '2',
         // image: {
         //   // url: '',
         // },
@@ -66,8 +66,8 @@ class RecommendedPageContent extends Component<Props> {
             {/* <div className="Header_32-40_Black">Возможные покупатели</div>
             <CardsList /> */}
           </TabPane>
-          <TabPane tab="История" tabKey="2">
-            <div className="Header_32-40_Black">История</div>
+          <TabPane tab="Активные рекомендации" tabKey="2">
+            <div className="Header_32-40_Black">Активные рекомендации</div>
           </TabPane>
         </Tabs>
       </ div>

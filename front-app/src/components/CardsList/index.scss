@@ -18,22 +18,22 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 5px;
-
-      button {
-        margin: 2px 0;
-        margin-right: 5px;
-      }
-    }
   }
 
   .card-controls {
     margin: 10px 20px;
     display: flex;
     flex-flow: row-reverse;
+  }
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+
+  button {
+    margin: 2px 0;
+    margin-right: 5px;
   }
 }
