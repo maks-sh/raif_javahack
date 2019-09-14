@@ -4,9 +4,10 @@ import { Modal, CardImaged, Button, AccentButton, Tag, IconButton, Input } from 
 import get from 'lodash/get';
 
 import './index.scss';
-import { getDogs, getUserImages } from '../../utils/http';
+import { getUserImages } from '../../utils/http';
 // import Editor from '../Editor/Editor';
 import {Editor, EditorState } from 'draft-js';
+// import { throwStatement } from '@babel/types';
 
 
 type Props = {
@@ -50,19 +51,26 @@ class CardsList extends Component<Props> {
     })
   }
 
-    onChange = (editorState:any) => {
-      console.log('EDITOR STATE', editorState);
-      this.setState({editorState});
-    }
-    setEditor = (editor:any) => {
-    this.editor = editor;
-    };
+  collaborate = () => {
+    if (!this.state.textValue) return;
 
-    focusEditor = () => {
+    console.log('COLLAB', this.state.textValue);
+  }
+
+  onChange = (editorState:any) => {
+    console.log('EDITOR STATE', editorState);
+    this.setState({editorState});
+  }
+
+  setEditor = (editor:any) => {
+    this.editor = editor;
+  };
+
+  focusEditor = () => {
     if (this.editor) {
       this.editor.focus();
     }
-    };
+  };
 
   showModal = (recomendation: any) => (): void => {
     this.setState({
@@ -131,7 +139,9 @@ class CardsList extends Component<Props> {
           show={this.state.showModal}
           header={get(this.state,'activeRecomendation.header', '')}
           buttons={[
-            <AccentButton className="yellow-btn" key="1111">Сотрудничать</AccentButton>,
+            <AccentButton className="yellow-btn" key="1111" onClick={this.collaborate}>
+              Сотрудничать
+            </AccentButton>,
             <Button key="2222" onClick={this.hideModal}>Закрыть</Button>,
           ]}
           // onClick={() => {}}
@@ -147,10 +157,13 @@ class CardsList extends Component<Props> {
                 ))}
               </div>
 
-              <div className="Mono_14-24_Black" style={{
-                marginBottom: 30,
-                marginTop: 30,
-              }}>
+              <div
+                className="Mono_14-24_Black"
+                style={{
+                  marginBottom: 30,
+                  marginTop: 30,
+                }}
+              >
                 Введите текст сопроводительного сообщения
               </div>
               <Input.Textarea

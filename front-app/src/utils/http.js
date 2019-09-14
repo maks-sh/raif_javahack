@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
-const API_URL = 'http://localhost:8080'
+// const API_URL = 'http://localhost:8080'
+const API_URL = 'http://192.168.43.27:8080';
 
 
 function makeHeaders() {
@@ -36,8 +37,8 @@ export function authorize({ email, userName }) {
     });
 }
 
-export function getDogs() {
-  const url = `https://dog.ceo/api/breeds/image/random/3`
+export function getUserImages() {
+  const url = `https://randomuser.me/api/?results=10`
   const options = {
     method: 'GET',
     // body: JSON.stringify({
@@ -56,8 +57,11 @@ export function getDogs() {
     });
 }
 
-export function getUserImages() {
-  const url = `https://randomuser.me/api/?results=10`
+export function getUserCards(userId) {
+  // let url = `${API_URL}/getUserCards?userId=${userId}`;
+  let url = `${API_URL}/api/user/${userId}/cards`;
+  // Object.keys(payload).forEach(key => url = `${url}${key}=${payload[key]}&`);
+
   const options = {
     method: 'GET',
     // body: JSON.stringify({
@@ -65,6 +69,28 @@ export function getUserImages() {
     //   userName,
     // }),
     // headers: makeHeaders(),
+  }
+
+  return fetch(url, options)
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+export function getCardTransactions(cardId) {
+  let url = `${API_URL}/api/card/${cardId}/transactions`;
+  // Object.keys(payload).forEach(key => url = `${url}${key}=${payload[key]}&`);
+
+  const options = {
+    method: 'GET',
+    // body: JSON.stringify({
+    //   email,
+    //   userName,
+    // }),
+    headers: makeHeaders(),
   }
 
   return fetch(url, options)

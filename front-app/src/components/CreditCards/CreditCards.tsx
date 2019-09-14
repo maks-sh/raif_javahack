@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Spinner } from 'storybook-directual';
 
+import get from 'lodash/get';
 import Cards from 'react-credit-cards';
 import './CreditCards.scss';
-import { throwStatement } from '@babel/types';
 
 
 type Props = {
@@ -33,11 +34,13 @@ const colors = [
 
 class CreditCards extends Component<Props> {
   static defaultProps: Props;
-
   render() {
+    const cards = get(this.props, 'cards', []);
+
     return (
       <div className="cards-container">
-        {this.props.cards.map((card: Card, index: number) =>(
+        {!cards.length && <Spinner size="big" />}
+        {this.props.cards && this.props.cards.map((card: Card, index: number) =>(
           <div
             className={`color-${colors[index]} ${this.props.activeCard === card.id ? 'active-card' : ''}`}
             onClick={this.props.onCardClick(card.id)}

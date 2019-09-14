@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
-import { AccentButton, Tag, Badge } from 'storybook-directual';
+import { Tag, Spinner } from 'storybook-directual';
 // import ModalComponent from '../Modal/Modal';
 import CreditCards from '../CreditCards/CreditCards';
+import get from 'lodash/get';
+
 import './index.scss';
 import Table from '../Table/Table';
+import { getUserCards, getCardTransactions } from '../../utils/http';
 
 type Props = {
   headerText: string;
   showNavigation?: boolean;
 };
-
+// amount: 200
+// bankMessage: "nice"
+// cardId: "aee85a4a-403b-4769-9090-cb0c1273966f"
+// changed: "2019-09-15T02:13:59.006"
+// date: "2019-09-15"
+// id: "2c89e2a0-d745-11e9-8080-808080808080"
+// paymentPurpose: "for food2"
+// receiverId: "fd6b2d77-6d38-4265-9ca2-56c93c165c8b"
+// receiverName: "Vasilij P."
+// status: "IN_PROGRESS"
 
 const columns= [
   {
@@ -19,35 +31,12 @@ const columns= [
     sortable: false,
   },
   {
-    title: 'name',
-    key: 'name',
+    title: 'Сумма',
+    key: 'amount',
     width: 200,
     sortable: true,
   },
 ]
-
-const dataSource:any = {
-  '1': [
-    {
-      id: '1',
-      name: '55555',
-    },
-    {
-      id: '2',
-      name: '6666',
-    },
-  ],
-  '2': [
-    {
-      id: '5',
-      name: ' 7777777',
-    },
-    {
-      id: '6',
-      name: '8888888',
-    },
-  ],
-}
 
 const tags = [
   'Малый бизнес',
@@ -59,34 +48,40 @@ class HomePageContent extends Component<Props> {
   static defaultProps: Props;
 
   state = {
-    activeCard: '1',
-    cards: [
-      {
-        id: '1',
-        number: '1234 **** **** 1121',
-        name: 'MR. PUPA',
-        expiry: '123',
-        funds: '58 300 руб.'
-        // issuer: 'visa',
-      },
-      {
-        id: '2',
-        number: '1234 **** **** 1121',
-        name: 'MR. LUPA',
-        expiry: '123',
-        funds: '124 138 руб.'
-        // issuer: 'visa',
-      },
-    ]
+    user: {
+      id: '743f885c-d740-11e9-8a34-2a2ae2dbcce4',
+    },
+    activeCard: '',
+    cards: [],
+    transactions: {},
+  }
+
+  componentDidMount() {
+    getUserCards(this.state.user.id).then(res => {
+      const cardId = get(res, '[0].id', '');
+
+      this.setState({
+        cards: res,
+      });
+
+      this.onCardClick(cardId)();
+    })
   }
 
   onCardClick = (cardId: string) => () => {
-    this.setState({
-      activeCard: cardId, 
+    getCardTransactions(cardId).then(resp => {
+      this.setState({
+        activeCard: cardId,
+        transactions: {
+          [cardId]: resp,
+        }
+      })
     })
   }
 
   render() {
+    const transactions: any = this.state.transactions;
+
     return (
       <>
         <div className="first-row">
@@ -123,11 +118,14 @@ class HomePageContent extends Component<Props> {
             className="Additional-Header_28-40_Black">
               История операций
             </div>
-
-            <Table
-              dataSource={dataSource[this.state.activeCard]}
-              columns={columns}
-            />
+            {
+              !transactions[this.state.activeCard]
+              ? <Spinner size="big" />
+              : <Table
+                dataSource={transactions[this.state.activeCard]}
+                columns={columns}
+              />
+            }
           </div>
         }
       </>

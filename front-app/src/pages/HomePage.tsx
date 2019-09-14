@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, Colors, AccentButton, Modal } from 'storybook-directual';
 
 import { withRouter } from "react-router";
 import PageHeader from '../components/PageHeader/PageHeader';

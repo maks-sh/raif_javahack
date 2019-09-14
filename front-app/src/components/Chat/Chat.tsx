@@ -47,7 +47,6 @@ class Chat extends Component<Props> {
   }
 
   render() {
-    // console.log('activeChat', this.state.activeChat)
     const activeChatMessages = get(this.state, 'activeChat.messages', []);
 
     return (
