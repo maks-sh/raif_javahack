@@ -1,21 +1,35 @@
 import React, { Component, SyntheticEvent } from 'react';
-import { Modal, CardImaged, Button, AccentButton, Tag, IconButton } from 'storybook-directual';
+import { Modal, CardImaged, Button, AccentButton, Tag, IconButton, Input } from 'storybook-directual';
 
 import get from 'lodash/get';
 
 import './index.scss';
 import { getDogs, getUserImages } from '../../utils/http';
+// import Editor from '../Editor/Editor';
+import {Editor, EditorState } from 'draft-js';
+
 
 type Props = {
   recommended: any;
 };
 
+const styles = {
+  editor: {
+    border: '1px solid gray',
+    minHeight: '6em'
+  }
+};
+
 class CardsList extends Component<Props> {
+  editor: any;
+
   state = {
     message: [],
     images: [],
     showModal: false,
     activeRecomendation: null,
+    editorState: EditorState.createEmpty(),
+    textValue: '',
   }
 
   componentDidMount() {
@@ -26,7 +40,29 @@ class CardsList extends Component<Props> {
         images,
       });
     });
+
+    this.focusEditor();
   }
+
+  onTextChange = (value: any) => {
+    this.setState({
+      textValue: value,
+    })
+  }
+
+    onChange = (editorState:any) => {
+      console.log('EDITOR STATE', editorState);
+      this.setState({editorState});
+    }
+    setEditor = (editor:any) => {
+    this.editor = editor;
+    };
+
+    focusEditor = () => {
+    if (this.editor) {
+      this.editor.focus();
+    }
+    };
 
   showModal = (recomendation: any) => (): void => {
     this.setState({
@@ -101,7 +137,7 @@ class CardsList extends Component<Props> {
           // onClick={() => {}}
           columnsNumber={1}
           column1={(
-            <div>
+            <div className="modal-content">
               <div className="Header_32-40_Black">
                 {get(this.state,'activeRecomendation.headerComment', '')}
               </div>
@@ -110,12 +146,37 @@ class CardsList extends Component<Props> {
                   <Tag colorGroup={tag.type === 'advert' ? '1-5' : '2-2'}>{tag.text}</Tag>
                 ))}
               </div>
-              <p
+
+              <div className="Mono_14-24_Black" style={{
+                marginBottom: 30,
+                marginTop: 30,
+              }}>
+                Введите текст сопроводительного сообщения
+              </div>
+              <Input.Textarea
+                value={this.state.textValue}
+                onChange={this.onTextChange}
+              />
+              {/* <div
+                style={styles.editor}
+                onClick={this.focusEditor}
+              >
+                <Editor
+                  ref={this.setEditor}
+                  editorState={this.state.editorState}
+                  onChange={this.onChange}
+                />
+              </div> */}
+              {/* <Editor
+                setRef={}
+                onChange={() => {}}
+              /> */}
+              {/* <p
                 style={{
                   marginTop: 25,
                 }}
               >
-              {get(this.state,'activeRecomendation.fullDescription', '')}</p>
+              {get(this.state,'activeRecomendation.fullDescription', '')}</p> */}
             </div>
           )}
         />

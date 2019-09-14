@@ -10,6 +10,7 @@ type Props = {
   history: any;
   headerText: string;
   showNavigation?: boolean;
+  isRecommendation?: boolean;
 };
 
 class PageHeader extends Component<Props> {
@@ -30,10 +31,18 @@ class PageHeader extends Component<Props> {
         <h1 className="header-text Header_32-40_Black">{this.props.headerText}</h1>
 
         <div className="navbar">
-          <Button className="navbutton" onClick={this.navigate('/')}>Личный кабинет</Button>
+          {
+            !this.props.isRecommendation
+            ? <Button className="navbutton" onClick={this.navigate('/')}>Личный кабинет</Button>
+            : <AccentButton className="navbutton yellow-btn" onClick={this.navigate('/')}>Личный кабинет</AccentButton>
+          }
 
           <Badge count={8} className="navbutton">
-            <AccentButton onClick={this.navigate('/recommended')} className="yellow-btn">Мои рекомендации</AccentButton>
+            {
+              this.props.isRecommendation
+              ? <Button onClick={this.navigate('/recommended')}>Мои рекомендации</Button>
+              : <AccentButton onClick={this.navigate('/recommended')} className="yellow-btn">Мои рекомендации</AccentButton>
+            }
           </Badge>
         </div>
       

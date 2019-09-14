@@ -9,7 +9,7 @@ import RecommendedPageContent from '../components/RecommendedPageContent';
 const HomePage = withRouter(({ history }) => {
   return (
     <div className="content-wrapper main">
-        <PageHeader history={history} headerText="Мои рекомендации"/>
+        <PageHeader history={history} isRecommendation headerText="Мои рекомендации"/>
         <RecommendedPageContent />
     </div>
   );
