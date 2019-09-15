@@ -73,6 +73,42 @@ public class CardTransactionsDataGenerator {
             "ИП Богачева Светлана Геннадьевна",
             UUID.randomUUID(),
             "Оплата счета от 13.10.2019 за картонные упаковки для кондитерских изделий для Богачевой СГ. В том числе НДС  20% - 2216,5"
+        ),
+//        вторая карточка
+        new CardTransaction(
+            new CardTransactionId(UUID.fromString("e06f64c7-cc15-486b-ba3b-bd90cc31dbcb"), UUIDs.timeBased()),
+            1077.67d,
+            TransactionStatusEnum.FINISHED,
+            LocalDate.of(2019, 8, 21),
+            LocalDateTime.of(2019, 8, 21, 11, 21, 51),
+            "",
+            "Городская клиническая больница им. Семашко",
+            UUID.randomUUID(),
+            "Оплата по счету № 267 от 21.08.2019 за лечение и госпитализацию Жуковой Евгении. " +
+                "НДС не облагается"
+        ),
+        new CardTransaction(
+            new CardTransactionId(UUID.fromString("e06f64c7-cc15-486b-ba3b-bd90cc31dbcb"), UUIDs.timeBased()),
+            4000d,
+            TransactionStatusEnum.FINISHED,
+            LocalDate.of(2019, 9, 11),
+            LocalDateTime.of(2019, 9, 11, 21, 1, 9),
+            "",
+            "Жуков Петр Вальерьевич",
+            UUID.randomUUID(),
+            "Перечисление подотчетных средств на банковскую карту работника на основании заявления б/н " +
+                "от 29.08.2019 в сумме 4000 руб на приобретение дополнительного оборудования. Без НДС"
+        ),
+        new CardTransaction(
+            new CardTransactionId(UUID.fromString("e06f64c7-cc15-486b-ba3b-bd90cc31dbcb"), UUIDs.timeBased()),
+            10000d,
+            TransactionStatusEnum.FINISHED,
+            LocalDate.of(2019, 9, 7),
+            LocalDateTime.of(2019, 9, 7, 3, 53, 31),
+            "",
+            "ИП Бандитов Руслан",
+            UUID.randomUUID(),
+            "Оплата поставщику по счету 10 от 07.09.2019 за пищевой краситель. В т.ч. НДС 20%"
         )
     );
 }
