@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { AccentButton, IconButton, Badge, Tabs, TabPane, Tooltip } from 'storybook-directual';
+import { IconButton, Badge, Tabs, TabPane, Tooltip } from 'storybook-directual';
 // import ModalComponent from '../Modal/Modal';
-import CreditCards from '../CreditCards/CreditCards';
 import get from 'lodash/get';
 import './index.scss';
 import CardsList from '../CardsList/CardsList';
 import Chat from '../Chat/Chat';
 import Table from '../Table/Table';
-import { getRecommendations, getCollaborationRequests } from '../../utils/http';
+import { getRecommendations, getCollaborationRequests, changeCollabStatus } from '../../utils/http';
 
 
 type Props = {
@@ -23,66 +22,72 @@ type Props = {
 // toUserId: "743f885c-d740-11e9-8a34-2a2ae2dbcce4"
 // type: "OUT"
 
-const collabColumns = [
-  // {
-  //   title: 'id',
-  //   key: 'id',
-  //   width: 200,
-  //   sortable: false,
-  // },
-  {
-    title: 'Дата',
-    key: 'date',
-    width: 200,
-    sortable: true,
-  },
-  {
-    title: 'От',
-    key: 'userFromName',
-    width: 200,
-    sortable: true,
-  },
-  {
-    title: 'Кому',
-    key: 'userToName',
-    width: 200,
-    sortable: true,
-  },
-  {
-    title: 'Сообщение',
-    key: 'message',
-    render: (row: any) => (
-      <Tooltip message={row.message} placement="bottomLeft">
-        <IconButton icon="bubble" />
-      </Tooltip>),
-    width: 200,
-    sortable: true,
-  },
-
-  {
-    title: 'Статус',
-    key: 'status',
-    width: 200,
-    sortable: true,
-  },
-  {
-    title: 'Среднее время ответа',
-    key: 'respTime',
-    // render: (row: any) => <IconButton icon="close" />,
-    width: 200,
-    sortable: true,
-  },
-  // {
-  //   title: '',
-  //   key: 'action',
-  //   render: (row: any) => <IconButton icon="close" />,
-  //   width: 200,
-  //   sortable: true,
-  // },
-]
 
 class RecommendedPageContent extends Component<Props> {
   static defaultProps: Props;
+
+  collabColumns = [
+    // {
+    //   title: 'id',
+    //   key: 'id',
+    //   width: 200,
+    //   sortable: false,
+    // },
+    {
+      title: 'Дата',
+      key: 'date',
+      width: 200,
+      sortable: true,
+    },
+    {
+      title: 'От',
+      key: 'userFromName',
+      width: 200,
+      sortable: true,
+    },
+    {
+      title: 'Кому',
+      key: 'userToName',
+      width: 200,
+      sortable: true,
+    },
+    {
+      title: 'Сообщение',
+      key: 'message',
+      render: (row: any) => (
+        <Tooltip message={row.message} placement="bottomLeft">
+          <IconButton icon="bubble" />
+        </Tooltip>),
+      width: 200,
+      sortable: true,
+    },
+  
+    {
+      title: 'Статус',
+      key: 'status',
+      width: 200,
+      sortable: true,
+    },
+    {
+      title: 'Среднее время ответа',
+      key: 'respTime',
+      // render: (row: any) => <IconButton icon="close" />,
+      width: 200,
+      sortable: true,
+    },
+    {
+      title: '',
+      key: 'action',
+      render: (row: any) => (
+        row.type !== 'OUT'
+        && <div style={{ display: 'flex' }}>
+          <IconButton onClick={this.changeColabStatus('ACCEPTED', row)} icon="done" />
+          <IconButton onClick={this.changeColabStatus('REJECTED', row)} icon="close" />
+        </div>),
+      width: 200,
+      sortable: true,
+    },
+  ]
 
   state = {
     user: {
@@ -143,7 +148,6 @@ class RecommendedPageContent extends Component<Props> {
   getCollaboraions = () => {
     getCollaborationRequests(this.state.user.id).then(
       res => {
-        console.log('RESSSS', res);
         this.setState({
           collabRequests: res,
         })
@@ -151,6 +155,13 @@ class RecommendedPageContent extends Component<Props> {
     );
   }
 
+  changeColabStatus = (status: string, colab: any) => () => {
+    const { fromUserId, toUserId, id } = colab;
+
+    changeCollabStatus(fromUserId, toUserId, id, status).then(res => {
+      this.getCollaboraions();
+    });
+  }
 
   changeTab = (key: string) => {
     this.setState({
@@ -190,9 +201,19 @@ class RecommendedPageContent extends Component<Props> {
   }
 
   mapCollabRequest = (req: any) => {
+    let reqStatus = 'Ожидание';
+
+    if (req.status === 'ACCEPTED') {
+      reqStatus = 'Подтверждена';
+    }
+
+    if (req.status === 'REJECTED') {
+      reqStatus = 'Отклонена';
+    }
+
     return ({
       ...req,
-      status: req.status === 'PENDING' ? 'Ожидание' : 'Подтверждена',
+      status: reqStatus,
       respTime: `${Math.floor(Math.random() * Math.floor(5))} ч.`
     })
   }
@@ -230,7 +251,7 @@ class RecommendedPageContent extends Component<Props> {
                   <Badge count={outgoingCollabReqs.length} />
                 </div>
           
-                <Table dataSource={outgoingCollabReqs} columns={collabColumns} />
+                <Table dataSource={outgoingCollabReqs} columns={this.collabColumns} />
               </>
             }
             
@@ -242,7 +263,7 @@ class RecommendedPageContent extends Component<Props> {
                   <Badge count={incomingCollabReqs.length} />
                 </div>
               
-                <Table dataSource={incomingCollabReqs} columns={collabColumns} />
+                <Table dataSource={incomingCollabReqs} columns={this.collabColumns.filter(col => col.key !== 'respTime')} />
               </>
             }
            

@@ -161,3 +161,20 @@ export function getCollaborationRequests(userId) {
       console.error(err);
     });
 }
+
+export function changeCollabStatus(userId, userToId, colReqId, status) {
+  let url = `${API_URL}/api/user/${userId}/to/${userToId}/request/${colReqId}?status=${status}`;
+
+  const options = {
+    method: 'PATCH',
+    headers: makeHeaders(),
+  }
+
+  return fetch(url, options)
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
