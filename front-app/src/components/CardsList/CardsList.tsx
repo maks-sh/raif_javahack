@@ -1,10 +1,10 @@
 import React, { Component, SyntheticEvent } from 'react';
-import { Modal, CardImaged, Button, AccentButton, Tag, IconButton, Input } from 'storybook-directual';
+import { Modal, CardImaged, Button, AccentButton, Tag, IconButton, Input, Notification } from 'storybook-directual';
 
 import get from 'lodash/get';
 
 import './index.scss';
-import { getUserImages } from '../../utils/http';
+import { getUserImages, collaborate } from '../../utils/http';
 // import Editor from '../Editor/Editor';
 import {Editor, EditorState } from 'draft-js';
 // import { throwStatement } from '@babel/types';
@@ -12,6 +12,7 @@ import {Editor, EditorState } from 'draft-js';
 
 type Props = {
   recommended: any;
+  enrollCb: any;
 };
 
 const styles = {
@@ -25,6 +26,9 @@ class CardsList extends Component<Props> {
   editor: any;
 
   state = {
+    user: {
+      id: '743f885c-d740-11e9-8a34-2a2ae2dbcce4',
+    },
     message: [],
     images: [],
     showModal: false,
@@ -34,13 +38,13 @@ class CardsList extends Component<Props> {
   }
 
   componentDidMount() {
-    getUserImages().then((response) => {
-      const images = response.results.map((user: any) => user.picture.large);
+    // getUserImages().then((response) => {
+    //   const images = response.results.map((user: any) => user.picture.large);
 
-      this.setState({
-        images,
-      });
-    });
+    //   this.setState({
+    //     images,
+    //   });
+    // });
 
     this.focusEditor();
   }
@@ -52,9 +56,17 @@ class CardsList extends Component<Props> {
   }
 
   collaborate = () => {
-    if (!this.state.textValue) return;
+    const userTo = get(this.state, 'activeRecomendation.userId', null);
 
-    console.log('COLLAB', this.state.textValue);
+    if (!this.state.textValue) return;
+    collaborate(this.state.user.id, userTo, this.state.textValue).then((res) => {
+
+      this.setState({
+        showModal: false,
+      });
+
+      this.props.enrollCb('2');
+    });
   }
 
   onChange = (editorState:any) => {
@@ -115,10 +127,10 @@ class CardsList extends Component<Props> {
           {this.props.recommended.map((rec: any, index: number) => (
             <div onClick={this.showModal(rec)}>
               <CardImaged
-                // image={rec.image}
-                image={{
-                  url: this.state.images[index],
-                }}
+                image={rec.image}
+                // image={{
+                //   url: this.state.images[index],
+                // }}
                 header={rec.header}
                 headerComment={(
                 <div>
@@ -164,7 +176,7 @@ class CardsList extends Component<Props> {
                   marginTop: 30,
                 }}
               >
-                Введите текст сопроводительного сообщения
+                Сопроводительное письмо (напишите немного о себе и о своем деле)
               </div>
               <Input.Textarea
                 value={this.state.textValue}

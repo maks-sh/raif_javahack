@@ -3,7 +3,7 @@ import React from 'react';
 const Table = ({ columns = [], dataSource = [] }: { columns: any, dataSource: any }) => {
   return (
     <table style={{
-      borderSpacing: '0 5px',
+      borderSpacing: '10px',
     }}>
       <thead style={{
         color:'#8E8E8E',
@@ -39,7 +39,10 @@ const Table = ({ columns = [], dataSource = [] }: { columns: any, dataSource: an
                 }}
                 // className="Subheader_14-24_Black"
               >
-                {row[col.key]}
+                {
+                  col.render
+                  ? col.render(row)
+                  : row[col.key]}
               </td>))}
             </tr>
           )

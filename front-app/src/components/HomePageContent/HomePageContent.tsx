@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Tag, Spinner } from 'storybook-directual';
+import { Tag, Spinner, Dates } from 'storybook-directual';
 // import ModalComponent from '../Modal/Modal';
 import CreditCards from '../CreditCards/CreditCards';
 import get from 'lodash/get';
+import moment from 'moment';
 
 import './index.scss';
 import Table from '../Table/Table';
@@ -23,16 +24,40 @@ type Props = {
 // receiverName: "Vasilij P."
 // status: "IN_PROGRESS"
 
-const columns= [
+const columns = [
+  // {
+  //   title: 'id',
+  //   key: 'id',
+  //   width: 200,
+  //   sortable: false,
+  // },
   {
-    title: 'id',
-    key: 'id',
+    title: 'Дата',
+    key: 'changed',
     width: 200,
-    sortable: false,
+    sortable: true,
   },
   {
     title: 'Сумма',
     key: 'amount',
+    width: 100,
+    sortable: true,
+  },
+  {
+    title: 'Назначение платежа',
+    key: 'paymentPurpose',
+    width: 400,
+    sortable: true,
+  },
+  {
+    title: 'Получатель',
+    key: 'receiverName',
+    width: 200,
+    sortable: true,
+  },
+  {
+    title: 'Статус',
+    key: 'status',
     width: 200,
     sortable: true,
   },
@@ -46,6 +71,14 @@ const tags = [
 
 class HomePageContent extends Component<Props> {
   static defaultProps: Props;
+  Dates: any;
+
+  constructor(props: Props) {
+    super(props);
+
+    // moment.locale('ru');
+    Dates.locale = 'ru';
+  }
 
   state = {
     user: {
@@ -80,7 +113,20 @@ class HomePageContent extends Component<Props> {
   }
 
   render() {
-    const transactions: any = this.state.transactions;
+    const activeCardTransactions: any = 
+      get(this.state,`transactions[${this.state.activeCard}]`, [])
+      .map((t:any) => (
+        {
+          ...t,
+          status: t.status === 'FINISHED' ? 'Успешно' : 'Обработка',
+          changed: moment(t.changed).format('DD/MM/YYYY HH:mm:ss'),
+          dateTime: moment(t.changed).unix(),
+          amount: `${t.amount} \u20BD`,
+        }
+      ))
+      .sort((t1:any, t2:any) => {
+        return (t2.dateTime - t1.dateTime);
+      });
 
     return (
       <>
@@ -97,7 +143,7 @@ class HomePageContent extends Component<Props> {
             <div className="info-item Subheader_14-24_Black">
               Елена Жуковская
             </div>
-            <div className="info-item Subheader_14">Индивидуальный предприниматель</div>
+            <div className="info-item info-item-sub Subheader_14">Индивидуальный предприниматель</div>
 
             <div className="user-tags">
               {
@@ -119,10 +165,10 @@ class HomePageContent extends Component<Props> {
               История операций
             </div>
             {
-              !transactions[this.state.activeCard]
+              !activeCardTransactions
               ? <Spinner size="big" />
               : <Table
-                dataSource={transactions[this.state.activeCard]}
+                dataSource={activeCardTransactions}
                 columns={columns}
               />
             }

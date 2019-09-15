@@ -18,6 +18,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    .card-image {
+      background-position: 0 -10px;
+    }
   }
 
   .card-controls {

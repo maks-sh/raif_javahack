@@ -48,6 +48,7 @@ class Chat extends Component<Props> {
 
   render() {
     const activeChatMessages = get(this.state, 'activeChat.messages', []);
+    const activeChatId = get(this.state, 'activeChat.id', []);
 
     return (
       <div className="chats">
@@ -62,7 +63,12 @@ class Chat extends Component<Props> {
             });
 
             return (<div
-              className="chat-item"
+              className={[
+                "chat-item",
+                chat.id === activeChatId
+                ? 'chat-item-active'
+                : ''
+              ].join(' ')}
               onClick={this.activateChat(chat)}
             >
               <div className="chat-icon"></div>

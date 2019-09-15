@@ -37,13 +37,13 @@ class PageHeader extends Component<Props> {
             : <AccentButton className="navbutton yellow-btn" onClick={this.navigate('/')}>Личный кабинет</AccentButton>
           }
 
-          <Badge count={8} className="navbutton">
+          {/* <Badge count={8} className="navbutton"> */}
             {
               this.props.isRecommendation
               ? <Button onClick={this.navigate('/recommended')}>Мои рекомендации</Button>
               : <AccentButton onClick={this.navigate('/recommended')} className="yellow-btn">Мои рекомендации</AccentButton>
             }
-          </Badge>
+          {/* </Badge> */}
         </div>
       
         {/* NAV */}

@@ -21,11 +21,12 @@
 
 .second-row {
   margin: 0 50px;
+  margin-bottom: 100px;
 }
 
 .yellow-btn.yellow-btn {
   background-color: $raif-yellow;
-  color: #000;
+  color: #222;
 
   &:hover {
     color: white;

@@ -12,17 +12,21 @@
     border-radius: 15px;
 
     &:hover {
-      box-shadow: 0 0 0 3px black inset;
+      box-shadow: 0 0 0 3px #222222 inset;
       cursor: pointer;
     }
 
     .chat-title, .chat-desc {
       margin-bottom: 5px;
     }
+
+    &-active {
+      background: #fee3b0;
+    }
   }
 
   .active-chat {
-    border-left: 1px solid black;
+    border-left: 1px solid #222222;
     padding: 15px;
     flex: 3;
     position: relative;
