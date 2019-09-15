@@ -39,11 +39,14 @@ public class CollaborationRequestDataService {
 
     }
 
-    public Integer updateCollaborationStatusRequestById(
+    public void updateCollaborationStatusRequestById(
         CollaborationRequestStatus status, UUID userToId, UUID userFromId, UUID id
     ) {
-        return colRepo.updateCollaborationlRequestStatusById(
+        colRepo.updateCollaborationlRequestStatusById(
             status.name(), userToId, userFromId, id
+        );
+        colRepo.updateCollaborationlRequestStatusById(
+            status.name(), userFromId, userToId, id
         );
     }
 
