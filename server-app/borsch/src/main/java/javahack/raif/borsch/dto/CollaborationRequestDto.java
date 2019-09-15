@@ -24,11 +24,13 @@ public class CollaborationRequestDto {
 
     private UUID fromUserId;
     private UUID toUserId;
+    private String userToName;
+    private String userFromName;
     private UUID id;
     private LocalDate date;
     private String message;
     private CollaborationRequestStatus status;
-//    private CollaborationRequestType type;
+    private CollaborationRequestType type;
 
     public CollaborationRequestDto(CollaborationRequest col) {
         this.fromUserId = col.getId().getUserFromId();
@@ -37,7 +39,9 @@ public class CollaborationRequestDto {
         this.date = col.getDate();
         this.message = col.getMessage();
         this.status = col.getStatus();
-//        this.type = col.getType();
+        this.type = col.getType();
+        this.userFromName = col.getUserFromName();
+        this.userToName = col.getUserToName();
     }
 
 }

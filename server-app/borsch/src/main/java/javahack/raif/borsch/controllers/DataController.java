@@ -19,12 +19,21 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 import java.util.UUID;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.OPTIONS;
+import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @RestController
 @RequestMapping("api")
@@ -37,6 +46,7 @@ public class DataController {
     private final RecommendationDataService recService;
     private final CollaborationRequestDataService colService;
     private final ChatMessageDataService msgService;
+
 
     @GetMapping("/user/{userId}/cards")
     public Set<UserCardDto> getUserCardsByUserId(@PathVariable UUID userId) {
@@ -63,16 +73,17 @@ public class DataController {
     ) {
         return colService.getCollaborationRequestsByUserId(userId);
     }
-    @PutMapping("/user/{userId}/request/{toUserId}")
+
+    @PutMapping("/user/{userId}/request/{userToId}")
     public String addCollaborationRequest(
             @PathVariable UUID userId,
             @PathVariable UUID userToId,
-            @RequestParam(value = "text") String text
+            @RequestBody String text
 
     ) {
-        return colService.addCollaborationRequest(userId, userToId, text).toString();
+        return colService.addCollaborationRequest(userId, userToId, text);
     }
-    @PatchMapping("/user/{userId}/request/{toUserId}")
+    @PatchMapping("/user/{userId}/request/{userToId}")
     public String addCollaborationRequest(
             @PathVariable UUID userId,
             @PathVariable UUID userToId,

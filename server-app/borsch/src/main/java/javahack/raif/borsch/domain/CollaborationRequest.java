@@ -3,6 +3,7 @@ package javahack.raif.borsch.domain;
 import com.datastax.driver.core.DataType;
 import javahack.raif.borsch.domain.ids.CollaborationRequestId;
 import javahack.raif.borsch.enums.CollaborationRequestStatus;
+import javahack.raif.borsch.enums.CollaborationRequestType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.cassandra.core.mapping.CassandraType;
@@ -24,8 +25,15 @@ public class CollaborationRequest {
     private LocalDate date;
     @Column("message")
     private String message;
+    @Column("user_to_name")
+    private String userToName;
+    @Column("user_from_name")
+    private String userFromName;
     @Column("status")
     @CassandraType(type = DataType.Name.TEXT)
     private CollaborationRequestStatus status;
+    @Column("type")
+    @CassandraType(type = DataType.Name.TEXT)
+    private CollaborationRequestType type;
 
 }

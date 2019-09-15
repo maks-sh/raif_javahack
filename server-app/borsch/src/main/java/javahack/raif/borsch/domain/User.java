@@ -18,5 +18,8 @@ public class User {
 
     @Column("img_url")
     private String url;
+
+    @Column("name")
+    private String name;
 }
 

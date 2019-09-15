@@ -59,7 +59,7 @@ public class CassandraTest {
     @Test
     public void test() {
 
-        userRepo.insert(new User(UUID.randomUUID(), "https://randomuser.me/api/portraits/women/39.jpg"));
+        userRepo.insert(new User(UUID.randomUUID(), "https://randomuser.me/api/portraits/women/39.jpg", "myName"));
     }
 
     @After

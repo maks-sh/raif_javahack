@@ -1,15 +1,11 @@
 package javahack.raif.borsch.service.init;
 
-import com.google.common.collect.Sets;
 import javahack.raif.borsch.domain.CardTransaction;
 import javahack.raif.borsch.domain.Recommendation;
 import javahack.raif.borsch.domain.User;
 import javahack.raif.borsch.domain.UserCard;
-import javahack.raif.borsch.domain.ids.CardTransactionId;
-import javahack.raif.borsch.domain.ids.RecommendationId;
 import javahack.raif.borsch.domain.ids.UserCardId;
 import javahack.raif.borsch.enums.FundType;
-import javahack.raif.borsch.enums.TransactionStatusEnum;
 import javahack.raif.borsch.repo.CardTransactionRepo;
 import javahack.raif.borsch.repo.RecommendationRepo;
 import javahack.raif.borsch.repo.UserCardRepo;
@@ -17,13 +13,15 @@ import javahack.raif.borsch.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.data.cassandra.core.CassandraAdminTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static javahack.raif.borsch.utils.CardTransactionsDataGenerator.TRANSACTIONS;
+import static javahack.raif.borsch.utils.RecommendationsDataGenerator.RECOMMENDATIONS;
+import static javahack.raif.borsch.utils.UserDataGenerator.USERS;
 
 @Component
 @RequiredArgsConstructor
@@ -37,88 +35,37 @@ public class DbDmInitService {
     private final CardTransactionRepo transactionRepo;
     private final RecommendationRepo recommendationRepo;
 
-    private final static UUID userId = UUID.fromString("743f885c-d740-11e9-8a34-2a2ae2dbcce4");
+    public final static UUID USER_ID = UUID.fromString("743f885c-d740-11e9-8a34-2a2ae2dbcce4");
     private final static UUID userId2 = UUID.fromString("e2ea2580-c446-4f04-bd76-d7ddedbd4ed9");
 
     @PostConstruct
     public void insertEntities() {
-        userRepo.save(
-                new User(userId, "https://randomuser.me/api/portraits/women/39.jpg")
-        );userRepo.save(
-                new User(userId2, "https://randomuser.me/api/portraits/women/50.jpg")
-        );
+        for (User user : USERS) {
+            userRepo.save(user);
+        }
         userCardRepo.save(new UserCard(
-                new UserCardId(userId, UUID.fromString("e06f64c7-cc15-486b-ba3b-bd90cc31dbcb")),
-                "123",
-                "Карточка Кенни",
+                new UserCardId(USER_ID, UUID.fromString("e06f64c7-cc15-486b-ba3b-bd90cc31dbcb")),
+                "4627 **** **** 1765",
+                "Основная",
                 LocalDate.now(),
-                550000.50,
+                120006.87,
                 FundType.RUB
         ));
         userCardRepo.save(new UserCard(
-                new UserCardId(userId, UUID.fromString("aee85a4a-403b-4769-9090-cb0c1273966f")),
-                "321",
-                "Карточка Пети",
+                new UserCardId(USER_ID, UUID.fromString("aee85a4a-403b-4769-9090-cb0c1273966f")),
+                "2200 **** **** 1874",
+                "Для поездок",
                 LocalDate.now(),
                 1232.15,
-                FundType.USD
+                FundType.RUB
         ));
-
-        transactionRepo.save(new CardTransaction(
-                new CardTransactionId(UUID.fromString("aee85a4a-403b-4769-9090-cb0c1273966f"), UUID.fromString("96033e20-b05d-11b7-8080-808080808080")),
-                100d,
-                TransactionStatusEnum.FINISHED,
-                LocalDate.now(),
-                LocalDateTime.now(),
-                "OMG RLY",
-                "Pupkin P.",
-                UUID.fromString("c1ae11bd-1abc-4bcb-8697-d950e3bd6ef0"),
-                "for food"
-        ));
-
-        transactionRepo.save(new CardTransaction(
-                new CardTransactionId(UUID.fromString("aee85a4a-403b-4769-9090-cb0c1273966f"), UUID.fromString("2c89e2a0-d745-11e9-8080-808080808080")),
-                200d,
-                TransactionStatusEnum.IN_PROGRESS,
-                LocalDate.now(),
-                LocalDateTime.now(),
-                "nice",
-                "Vasilij P.",
-                UUID.fromString("fd6b2d77-6d38-4265-9ca2-56c93c165c8b"),
-                "for food2"
-        ));
+        for (CardTransaction thx : TRANSACTIONS) {
+            transactionRepo.save(thx);
+        }
 
 
-
-        recommendationRepo.save(
-                new Recommendation(
-                        new RecommendationId(
-                                userId,
-                                userId2,
-                                UUID.fromString("df9e9cb0-8ec7-1776-8080-808080808080")
-                        ),
-                        "Petya",
-                        "описываю",
-                        "комментирую",
-                        "типа url",
-                        Sets.newHashSet("тыц", "тыцтыц")
-                )
-        );
-
-        recommendationRepo.save(
-                new Recommendation(
-                        new RecommendationId(
-                                userId,
-                                userId2,
-                                UUID.fromString("0adddeb0-876c-1b5e-8080-808080808080")
-                        ),
-                        "Petya2",
-                        "описываю2",
-                        "комментирую2",
-                        "типа url2",
-                        Sets.newHashSet("тыц2", "тыцтыц2")
-                )
-        );
-
+        for (Recommendation rec : RECOMMENDATIONS) {
+            recommendationRepo.save(rec);
+        }
     }
 }
