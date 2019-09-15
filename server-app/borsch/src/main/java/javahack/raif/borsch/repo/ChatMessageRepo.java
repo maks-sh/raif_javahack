@@ -14,6 +14,6 @@ import java.util.UUID;
 @Repository
 public interface ChatMessageRepo extends CassandraRepository<ChatMessage, ChatMessageId> {
 
-    @Query("select * from chat_message where user_id = ?")
+    @Query("select * from chat_message where user_id = ?0")
     Set<ChatMessage> findByUserId(UUID requestId);
 }

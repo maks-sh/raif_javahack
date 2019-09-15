@@ -1,17 +1,21 @@
 package javahack.raif.borsch.controllers;
 
+import javahack.raif.borsch.domain.CollaborationRequest;
 import javahack.raif.borsch.dto.CardTransactionDto;
 import javahack.raif.borsch.dto.CollaborationRequestDto;
 import javahack.raif.borsch.dto.RecommendationDto;
 import javahack.raif.borsch.dto.UserCardDto;
 import javahack.raif.borsch.dto.UserMessagesDto;
+import javahack.raif.borsch.enums.CollaborationRequestStatus;
 import javahack.raif.borsch.service.CardDataService;
 import javahack.raif.borsch.service.ChatMessageDataService;
 import javahack.raif.borsch.service.CollaborationRequestDataService;
 import javahack.raif.borsch.service.RecommendationDataService;
 import javahack.raif.borsch.service.UserDataService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,8 +27,9 @@ import java.util.Set;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("api")
 @RequiredArgsConstructor
+@CrossOrigin
 public class DataController {
 
     private final UserDataService userService;
@@ -33,7 +38,7 @@ public class DataController {
     private final CollaborationRequestDataService colService;
     private final ChatMessageDataService msgService;
 
-    @GetMapping("user/{userId}/cards")
+    @GetMapping("/user/{userId}/cards")
     public Set<UserCardDto> getUserCardsByUserId(@PathVariable UUID userId) {
         return userService.getUserCardsByUserId(userId);
     }
@@ -43,7 +48,7 @@ public class DataController {
         return cardService.getCardTransactionsByCardId(cardId);
     }
 
-    @GetMapping("user/{userId}/recommendations")
+    @GetMapping("/user/{userId}/recommendations")
     public Set<RecommendationDto> getAllRecommendationsByUserIdWithLimit(
             @PathVariable UUID userId,
             @RequestParam(value = "limit", defaultValue = "5") Integer limit
@@ -51,20 +56,14 @@ public class DataController {
         return recService.getAllRecommendationsByUserIdWithLimit(userId, limit);
     }
 
-    @GetMapping("chat/{reqId}/user/{userId}")
-    public Set<UserMessagesDto> getAllChatMessages(
-            @PathVariable UUID reqId,
-            @PathVariable UUID userId
-    ) {
-        return msgService.getChatMessagesByUserId(reqId, userId);
-    }
-    @GetMapping("user/{userId}/collaborationRequests")
+
+    @GetMapping("/user/{userId}/collaborationRequests")
     public Set<CollaborationRequestDto> getAllCollabRequestsByUserId(
             @PathVariable UUID userId
     ) {
         return colService.getCollaborationRequestsByUserId(userId);
     }
-    @PutMapping("user/{userId}/request/{toUserId}")
+    @PutMapping("/user/{userId}/request/{toUserId}")
     public String addCollaborationRequest(
             @PathVariable UUID userId,
             @PathVariable UUID userToId,
@@ -73,8 +72,27 @@ public class DataController {
     ) {
         return colService.addCollaborationRequest(userId, userToId, text).toString();
     }
+    @PatchMapping("/user/{userId}/request/{toUserId}")
+    public String addCollaborationRequest(
+            @PathVariable UUID userId,
+            @PathVariable UUID userToId,
+            @PathVariable UUID id,
+            @RequestParam CollaborationRequestStatus status
 
-    @PostMapping("chat/{reqId}/user/{userId}/add")
+    ) {
+        return colService.updateCollaborationStatusRequestById(status, userToId, userId, id).toString();
+    }
+
+
+    @GetMapping("/chat/{reqId}/user/{userId}")
+    public Set<UserMessagesDto> getAllChatMessages(
+            @PathVariable UUID reqId,
+            @PathVariable UUID userId
+    ) {
+        return msgService.getChatMessagesByUserId(reqId, userId);
+    }
+
+    @PutMapping("/chat/{reqId}/user/{userId}/add")
     public String addMessageToChat(
             @PathVariable UUID reqId,
             @PathVariable UUID userId,

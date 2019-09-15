@@ -3,7 +3,6 @@ package javahack.raif.borsch.domain;
 import com.datastax.driver.core.DataType;
 import javahack.raif.borsch.domain.ids.CollaborationRequestId;
 import javahack.raif.borsch.enums.CollaborationRequestStatus;
-import javahack.raif.borsch.enums.CollaborationRequestType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.cassandra.core.mapping.CassandraType;

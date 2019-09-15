@@ -30,6 +30,7 @@ public class UserCardDto {
         this.number = card.getNumber();
         this.name = card.getCardName();
         this.expiry = card.getExpiry();
-        //TODO funds & fundType
+        this.funds = card.getFunds();
+        this.fundsType = card.getFundType();
     }
 }

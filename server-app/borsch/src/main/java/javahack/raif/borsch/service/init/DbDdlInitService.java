@@ -1,14 +1,16 @@
-package javahack.raif.borsch.service;
+package javahack.raif.borsch.service.init;
 
 import javahack.raif.borsch.domain.CardTransaction;
+import javahack.raif.borsch.domain.ChatMessage;
+import javahack.raif.borsch.domain.CollaborationRequest;
+import javahack.raif.borsch.domain.Recommendation;
 import javahack.raif.borsch.domain.User;
-import javahack.raif.borsch.repo.CardTransactionRepo;
-import javahack.raif.borsch.repo.UserRepo;
+import javahack.raif.borsch.domain.UserCard;
+import javahack.raif.borsch.domain.UserRecommendation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.reflections.Reflections;
 import org.springframework.data.cassandra.core.CassandraAdminTemplate;
 import org.springframework.data.cassandra.core.cql.CqlIdentifier;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -17,26 +19,24 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
-public class DbDataInitService {
+public class DbDdlInitService {
 
     private static final Logger LOG = LogManager.getLogger("borsch.logger");
 
     private final CassandraAdminTemplate adminTemplate;
-    private final UserRepo userRepo;
-    private final CardTransactionRepo cardTransactionRepo;
 
     @PostConstruct
     public void createTables() {
-        Reflections reflections = new Reflections("my.project.prefix");
-
-        Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
-        allClasses.stream()
-                .filter(clazz -> clazz.isAnnotationPresent(Table.class))
-                .forEach(this::createTableForEntity);
+        createTableForEntity(User.class);
+        createTableForEntity(CardTransaction.class);
+        createTableForEntity(CollaborationRequest.class);
+        createTableForEntity(ChatMessage.class);
+        createTableForEntity(Recommendation.class);
+        createTableForEntity(UserCard.class);
+        createTableForEntity(UserRecommendation.class);
         LOG.info("Все таблицы созданы");
     }
 

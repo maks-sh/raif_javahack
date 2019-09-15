@@ -1,6 +1,7 @@
 package javahack.raif.borsch.domain;
 
 import javahack.raif.borsch.domain.ids.UserCardId;
+import javahack.raif.borsch.enums.FundType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.cassandra.core.mapping.Column;
@@ -22,6 +23,12 @@ public class UserCard {
     @Column("name")
     private String cardName;
 
-    @Column("number")
+    @Column("expiry")
     private LocalDate expiry;
+
+    @Column("funds")
+    private Double funds;
+
+    @Column("fund_type")
+    private FundType fundType;
 }

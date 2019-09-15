@@ -27,9 +27,11 @@ public class CollaborationRequestDataService {
 
     }
 
-    public Integer updateCollaborationStatusRequestById(String status, UUID userToId, UUID userFromId, UUID id) {
+    public Integer updateCollaborationStatusRequestById(
+            CollaborationRequestStatus status, UUID userToId, UUID userFromId, UUID id
+    ) {
         return colRepo.updateCollaborationlRequestStatusById(
-                status, userToId, userFromId, id
+                status.name(), userToId, userFromId, id
         );
     }
 

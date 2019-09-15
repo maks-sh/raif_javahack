@@ -5,7 +5,6 @@ import javahack.raif.borsch.dto.UserCardDto;
 import javahack.raif.borsch.repo.UserCardRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Set;
 import java.util.UUID;

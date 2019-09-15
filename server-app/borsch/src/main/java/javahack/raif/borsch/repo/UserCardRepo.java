@@ -12,6 +12,6 @@ import java.util.UUID;
 @Repository
 public interface UserCardRepo extends CassandraRepository<UserCard, UserCardId> {
 
-    @Query("select * from user_card where user_id = ?")
+    @Query("select * from user_card where user_id = ?0")
     Set<UserCard> findByUserId(UUID userId);
 }

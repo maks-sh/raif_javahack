@@ -13,6 +13,6 @@ import java.util.UUID;
 @Repository
 public interface RecommendationRepo extends CassandraRepository<Recommendation, RecommendationId> {
 
-    @Query("select * from recommendation where user_id = ? limit ?")
+    @Query("select * from recommendation where user_id = ?0 limit ?1")
     Set<Recommendation> findAllByUserIdWithLimit(UUID userId, Integer limit);
 }
