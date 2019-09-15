@@ -178,3 +178,39 @@ export function changeCollabStatus(userId, userToId, colReqId, status) {
       console.error(err);
     });
 }
+
+export function getChat(userId, colReqId) {
+  let url = `${API_URL}/api/chat/${colReqId}/user/${userId}`;
+
+  const options = {
+    method: 'GET',
+    headers: makeHeaders(),
+  }
+
+  return fetch(url, options)
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+export function sendMessage(userId, colReqId, text) {
+  let url = `${API_URL}/api/chat/${colReqId}/user/${userId}/add`;
+
+  const options = {
+    method: 'PUT',
+    body: text,
+    
+    headers: makeHeaders(),
+  }
+
+  return fetch(url, options)
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}

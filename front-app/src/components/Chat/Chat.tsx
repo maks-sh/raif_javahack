@@ -1,9 +1,12 @@
 import React, { Component, SyntheticEvent } from 'react';
 import { Icon, Input, IconButton } from 'storybook-directual';
 
+import moment from 'moment';
+
 import get from 'lodash/get';
 
 import './index.scss';
+import { getChat, sendMessage } from '../../utils/http';
 
 type Props = {
   chats: any;
@@ -16,10 +19,18 @@ class Chat extends Component<Props> {
   };
 
   activateChat = (chat: any) => () => {
-    this.setState({
-      activeChat: chat,
-      message: '',
-    })
+    getChat('743f885c-d740-11e9-8a34-2a2ae2dbcce4', chat.id).then(res => {
+      this.setState({
+        activeChat: {
+          ...chat,
+          messages: [
+            chat.messages[0],
+            ...res.sort((m1:any, m2:any) => moment(m1.time).unix() - moment(m2.time).unix()),
+          ],
+        },
+        message: '',
+      })
+    });
   }
 
   setMessage = (value: any) => {
@@ -30,20 +41,12 @@ class Chat extends Component<Props> {
 
   submitMessage = () => {
     if (!this.state.message) return;
+    const activeChatId = get(this.state, 'activeChat.id', '');
+    if (!activeChatId) return;
 
-    const activeChatMessages = get(this.state, 'activeChat.messages', []);
-    activeChatMessages.push({
-      text: this.state.message,
-      timestamp: (new Date).getTime(),
-      type: 1,
-    })
-    this.setState({
-      activeChat: {
-        ...(this.state.activeChat || {}),
-        messages:  activeChatMessages,
-      },
-      message: '',
-    })
+    sendMessage('743f885c-d740-11e9-8a34-2a2ae2dbcce4', activeChatId, this.state.message).then(res => {
+      this.activateChat(this.state.activeChat)();
+    });
   }
 
   render() {
@@ -75,7 +78,7 @@ class Chat extends Component<Props> {
               <div className="chat-title Subheader_14-24_Black">{title}</div>
               <div className="chat-desc Subheader_14">{desc}</div>
               <div className="chat-last-msg Comment_12-16">
-                {lastMsg.type === 1 && 'Вы: '}
+                {lastMsg.source === 'MY' && 'Вы: '}
                 {lastMsg.text}
               </div>
             </div>)
@@ -92,7 +95,7 @@ class Chat extends Component<Props> {
                 }
                 {
                   activeChatMessages.map((msg: any) => {
-                    return (<div className={[ 'message', msg.type === 1 && 'my-message'].join(' ')}>
+                    return (<div className={[ 'message', msg.source === 'MY' && 'my-message'].join(' ')}>
                       {msg.text}
                     </div>)
                   }) 
