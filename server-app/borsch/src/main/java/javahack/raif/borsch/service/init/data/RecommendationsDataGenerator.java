@@ -1,4 +1,4 @@
-package javahack.raif.borsch.utils;
+package javahack.raif.borsch.service.init.data;
 
 import com.datastax.driver.core.utils.UUIDs;
 import com.google.common.collect.Sets;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static javahack.raif.borsch.service.init.DbDmInitService.USER_ID;
-import static javahack.raif.borsch.utils.UserDataGenerator.USERS;
+import static javahack.raif.borsch.service.init.data.UserDataGenerator.USERS;
 
 public class RecommendationsDataGenerator {
     public static List<Recommendation> RECOMMENDATIONS = Arrays.asList(
@@ -22,7 +22,7 @@ public class RecommendationsDataGenerator {
             USERS.get(0).getName(),
             "Курьерская деятельность",
             "",
-            USERS.get(0).getName(),
+            USERS.get(0).getUrl(),
             Sets.newHashSet("Курьер", "Доставка")
         ),
         new Recommendation(
@@ -34,7 +34,7 @@ public class RecommendationsDataGenerator {
             USERS.get(1).getName(),
             "Продажа овощей и фруктов",
             "",
-            USERS.get(1).getName(),
+            USERS.get(1).getUrl(),
             Sets.newHashSet("Ягоды", "Яблоки")
         ),
         new Recommendation(
@@ -46,7 +46,7 @@ public class RecommendationsDataGenerator {
             USERS.get(2).getName(),
             "Удаленный бухгалтер",
             "",
-            USERS.get(2).getName(),
+            USERS.get(2).getUrl(),
             Sets.newHashSet("Реклама", "Бухгалетрия")
         ),
         new Recommendation(
@@ -58,7 +58,7 @@ public class RecommendationsDataGenerator {
             USERS.get(3).getName(),
             "Образовательная деятельность",
             "",
-            USERS.get(3).getName(),
+            USERS.get(3).getUrl(),
             Sets.newHashSet("Реклама", "Обучения")
         ),
         new Recommendation(
@@ -70,7 +70,7 @@ public class RecommendationsDataGenerator {
             USERS.get(4).getName(),
             "Кондитерские изделия",
             "",
-            USERS.get(4).getName(),
+            USERS.get(4).getUrl(),
             Sets.newHashSet("Конфеты", "Пирожные")
         ),
         new Recommendation(
@@ -82,7 +82,7 @@ public class RecommendationsDataGenerator {
             USERS.get(5).getName(),
             "Продажа овощей и фруктов",
             "",
-            USERS.get(5).getName(),
+            USERS.get(5).getUrl(),
             Sets.newHashSet("Ягоды", "Помидоры")
         ),
         new Recommendation(
@@ -94,7 +94,7 @@ public class RecommendationsDataGenerator {
             USERS.get(6).getName(),
             "Курьерская деятельность",
             "",
-            USERS.get(6).getName(),
+            USERS.get(6).getUrl(),
             Sets.newHashSet("Доставка", "Перевозка")
         ),
         new Recommendation(
@@ -106,7 +106,7 @@ public class RecommendationsDataGenerator {
             USERS.get(7).getName(),
             "Продажа овощей и фруктов",
             "",
-            USERS.get(7).getName(),
+            USERS.get(7).getUrl(),
             Sets.newHashSet("Ягоды", "Черника")
         ),
         new Recommendation(
@@ -118,7 +118,7 @@ public class RecommendationsDataGenerator {
             USERS.get(8).getName(),
             "Кондитерские изделия",
             "",
-            USERS.get(8).getName(),
+            USERS.get(8).getUrl(),
             Sets.newHashSet("Красители пищевые")
         ),
         new Recommendation(
@@ -130,7 +130,7 @@ public class RecommendationsDataGenerator {
             USERS.get(9).getName(),
             "Курьерская деятельность",
             "",
-            USERS.get(9).getName(),
+            USERS.get(9).getUrl(),
             Sets.newHashSet("Перевозки", "Доставка")
         ),
         new Recommendation(
@@ -142,7 +142,7 @@ public class RecommendationsDataGenerator {
             USERS.get(10).getName(),
             "Образовательная деятельность",
             "",
-            USERS.get(10).getName(),
+            USERS.get(10).getUrl(),
             Sets.newHashSet("Excel", "Маркетинг")
         ),
         new Recommendation(
@@ -154,7 +154,7 @@ public class RecommendationsDataGenerator {
             USERS.get(11).getName(),
             "Продажа овощей и фруктов",
             "",
-            USERS.get(11).getName(),
+            USERS.get(11).getUrl(),
             Sets.newHashSet("Малина", "Черника")
         ),
         new Recommendation(
@@ -166,7 +166,7 @@ public class RecommendationsDataGenerator {
             USERS.get(12).getName(),
             "Кондитерские изделия",
             "",
-            USERS.get(12).getName(),
+            USERS.get(12).getUrl(),
             Sets.newHashSet("Конфеты", "Пирожные")
         ),
         new Recommendation(
@@ -178,7 +178,7 @@ public class RecommendationsDataGenerator {
             USERS.get(13).getName(),
             "Продажа овощей и фруктов",
             "",
-            USERS.get(13).getName(),
+            USERS.get(13).getUrl(),
             Sets.newHashSet("Яблоки", "Овощи")
         ),
         new Recommendation(
@@ -190,7 +190,7 @@ public class RecommendationsDataGenerator {
             USERS.get(14).getName(),
             "Удаленный бухгалтер",
             "",
-            USERS.get(14).getName(),
+            USERS.get(14).getUrl(),
             Sets.newHashSet("Бухгалтерия")
         )
     );

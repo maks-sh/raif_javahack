@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Тестовое апи.
+ * @author denrus
+ * 14.09.2019
  */
 @RestController
 @RequestMapping("/test/")

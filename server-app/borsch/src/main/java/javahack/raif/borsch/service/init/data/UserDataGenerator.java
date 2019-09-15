@@ -1,4 +1,4 @@
-package javahack.raif.borsch.utils;
+package javahack.raif.borsch.service.init.data;
 
 import javahack.raif.borsch.domain.User;
 import org.springframework.stereotype.Service;

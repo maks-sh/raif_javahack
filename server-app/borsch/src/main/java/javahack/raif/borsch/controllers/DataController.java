@@ -1,6 +1,5 @@
 package javahack.raif.borsch.controllers;
 
-import javahack.raif.borsch.domain.CollaborationRequest;
 import javahack.raif.borsch.dto.CardTransactionDto;
 import javahack.raif.borsch.dto.CollaborationRequestDto;
 import javahack.raif.borsch.dto.RecommendationDto;
@@ -17,28 +16,24 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 import java.util.UUID;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.OPTIONS;
-import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
+/**
+ * Контроллер для передачи данных на клиент.
+ * @author denrus
+ * 15.09.2019
+ */
+@CrossOrigin
 @RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
-@CrossOrigin
 public class DataController {
 
     private final UserDataService userService;

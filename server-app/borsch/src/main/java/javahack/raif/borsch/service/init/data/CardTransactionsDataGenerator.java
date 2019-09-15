@@ -1,4 +1,4 @@
-package javahack.raif.borsch.utils;
+package javahack.raif.borsch.service.init.data;
 
 import com.datastax.driver.core.utils.UUIDs;
 import javahack.raif.borsch.domain.CardTransaction;

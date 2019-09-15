@@ -21,6 +21,12 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.function.Supplier;
 
+/**
+ * Конфигурация кластера БД. Cassandra.
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 @Configuration
 @EnableCassandraRepositories(basePackages = "javahack.raif.borsch.repo")
 public class CassandraConfig extends AbstractCassandraConfiguration {
@@ -48,13 +54,11 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     }
 
     @Bean
-    public CassandraClusterFactoryBean cluster(
-            @Autowired Supplier<String> actions
-    ) {
+    public CassandraClusterFactoryBean cluster(@Autowired Supplier<String> actions) {
         try {
             LOG.info(actions.get());
             CassandraClusterFactoryBean cluster =
-                    new CassandraClusterFactoryBean();
+                new CassandraClusterFactoryBean();
             CreateKeyspaceSpecification createKeySpace = CreateKeyspaceSpecification.createKeyspace(keyspace);
             cluster.setKeyspaceCreations(Collections.singletonList(createKeySpace));
             cluster.setJmxReportingEnabled(false);
@@ -66,6 +70,14 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
         }
     }
 
+    /**
+     * Объявление бина для запуска под локальным профилем (In-memory-БД Cassandra).
+     *
+     * @return лог-сообщение
+     * @throws InterruptedException в случае ошибки запуска локальной Cassandra
+     * @throws IOException          в случае ошибки запуска локальной Cassandra
+     * @throws TTransportException  в случае ошибки запуска локальной Cassandra
+     */
     @Bean
     @Profile("local")
     public Supplier<String> localPreconfigActions() throws InterruptedException, IOException, TTransportException {
@@ -73,6 +85,11 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
         return () -> "EmbeddedCassandra started";
     }
 
+    /**
+     * Объявление бина для запуска НЕ под локальным профилем (на удаленном сервере БД).
+     *
+     * @return лог-сообщение
+     */
     @Bean
     @Profile("!local")
     public Supplier<String> notLocalPreconfigActions() {
@@ -81,7 +98,7 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 
     @Bean
     public CassandraMappingContext cassandraMapping()
-            throws ClassNotFoundException {
+        throws ClassNotFoundException {
         return new BasicCassandraMappingContext();
     }
 }

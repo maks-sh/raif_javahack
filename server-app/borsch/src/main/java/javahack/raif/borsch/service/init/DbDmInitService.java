@@ -19,9 +19,9 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import static javahack.raif.borsch.utils.CardTransactionsDataGenerator.TRANSACTIONS;
-import static javahack.raif.borsch.utils.RecommendationsDataGenerator.RECOMMENDATIONS;
-import static javahack.raif.borsch.utils.UserDataGenerator.USERS;
+import static javahack.raif.borsch.service.init.data.CardTransactionsDataGenerator.TRANSACTIONS;
+import static javahack.raif.borsch.service.init.data.RecommendationsDataGenerator.RECOMMENDATIONS;
+import static javahack.raif.borsch.service.init.data.UserDataGenerator.USERS;
 
 @Component
 @RequiredArgsConstructor
@@ -36,13 +36,16 @@ public class DbDmInitService {
     private final RecommendationRepo recommendationRepo;
 
     public final static UUID USER_ID = UUID.fromString("743f885c-d740-11e9-8a34-2a2ae2dbcce4");
-    private final static UUID userId2 = UUID.fromString("e2ea2580-c446-4f04-bd76-d7ddedbd4ed9");
 
     @PostConstruct
     public void insertEntities() {
         for (User user : USERS) {
             userRepo.save(user);
         }
+        //Инициализируем "основного" пользователя для демо
+        userRepo.save(
+            new User(USER_ID, "TODO", "Елена Жуковская")
+        );
         userCardRepo.save(new UserCard(
                 new UserCardId(USER_ID, UUID.fromString("e06f64c7-cc15-486b-ba3b-bd90cc31dbcb")),
                 "4627 **** **** 1765",
@@ -53,7 +56,7 @@ public class DbDmInitService {
         ));
         userCardRepo.save(new UserCard(
                 new UserCardId(USER_ID, UUID.fromString("aee85a4a-403b-4769-9090-cb0c1273966f")),
-                "2200 **** **** 1874",
+                "5536 **** **** 1874",
                 "Для поездок",
                 LocalDate.now(),
                 1232.15,
