@@ -1,2 +1,10 @@
 @import 'normalize.css';
 @import './constants.scss';
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+div {
+  box-sizing: border-box;
+}
