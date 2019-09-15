@@ -79,7 +79,7 @@ class RecommendedPageContent extends Component<Props> {
       title: '',
       key: 'action',
       render: (row: any) => (
-        row.type !== 'OUT'
+        row.type !== 'OUT' && row.status === 'Ожидание'
         && <div style={{ display: 'flex' }}>
           <IconButton onClick={this.changeColabStatus('ACCEPTED', row)} icon="done" />
           <IconButton onClick={this.changeColabStatus('REJECTED', row)} icon="close" />
@@ -96,53 +96,53 @@ class RecommendedPageContent extends Component<Props> {
     activeKey: '1',
     recommended: [],
     collabRequests: [],
-    chats: [
-      {
-        id: '11',
-        user: {
-          title: "ИП Мопс Анна Николаевна",
-          desc: "поставщик шоколада",
-          image: {
-            url: 'https://images.dog.ceo/breeds/clumber/n02101556_3333.jpg',
-          }
-        },
-        messages: [
-          {
-            id: new Date().getTime(),
-            timestamp: 1568482760101,
-            text: 'Здравствуйте!',
-            type: 0,
-          },
-          {
-            id: new Date().getTime(),
-            timestamp: 1568482760102,
-            text: 'И вам привет от Елены!',
-            type: 1
-          },
-        ]
-      },
-      {
-        id: '22',
-        user: {
-          title: "ИП Виталик",
-          desc: "поставщик муки",
-        },
-        messages: [
-          {
-            id: new Date().getTime(),
-            timestamp: 1568482760101,
-            text: 'Это Елена!',
-            type: 1,
-          },
-          {
-            id: new Date().getTime(),
-            timestamp: 1568482760102,
-            text: 'И вам привет!',
-            type: 0,
-          },
-        ]
-      },
-    ]
+    // chats: [
+    //   {
+    //     id: '11',
+    //     user: {
+    //       title: "ИП Мопс Анна Николаевна",
+    //       desc: "поставщик шоколада",
+    //       image: {
+    //         url: 'https://images.dog.ceo/breeds/clumber/n02101556_3333.jpg',
+    //       }
+    //     },
+    //     messages: [
+    //       {
+    //         id: new Date().getTime(),
+    //         timestamp: 1568482760101,
+    //         text: 'Здравствуйте!',
+    //         type: 0,
+    //       },
+    //       {
+    //         id: new Date().getTime(),
+    //         timestamp: 1568482760102,
+    //         text: 'И вам привет от Елены!',
+    //         type: 1
+    //       },
+    //     ]
+    //   },
+    //   {
+    //     id: '22',
+    //     user: {
+    //       title: "ИП Виталик",
+    //       desc: "поставщик муки",
+    //     },
+    //     messages: [
+    //       {
+    //         id: new Date().getTime(),
+    //         timestamp: 1568482760101,
+    //         text: 'Это Елена!',
+    //         type: 1,
+    //       },
+    //       {
+    //         id: new Date().getTime(),
+    //         timestamp: 1568482760102,
+    //         text: 'И вам привет!',
+    //         type: 0,
+    //       },
+    //     ]
+    //   },
+    // ]
   }
 
   getCollaboraions = () => {
@@ -218,8 +218,38 @@ class RecommendedPageContent extends Component<Props> {
     })
   }
 
+  makeChats = (collabRequests: any) => {
+    let chats:any = [];
+    console.log('collabRequests', collabRequests);
+    chats = collabRequests.map((req:any) => {
+      if (req.status === 'ACCEPTED') {
+        return ({
+          id: req.id,
+          user: {
+            title: req.userFromName,
+            desc: '',
+            // image: {
+            //   url: 'https://images.dog.ceo/breeds/clumber/n02101556_3333.jpg',
+            // }
+          },
+          messages: [{
+            id: new Date().getTime(),
+            timestamp: 1568482760102,
+            text: req.message,
+            type: 0,
+          },],
+        })
+      }
+
+      return null;
+    });
+
+    return chats.filter((c:any) => c);
+  }
+
   render() {
     const collabReqs = get(this.state,'collabRequests', []);
+    const chats = this.makeChats(this.state.collabRequests);
 
     const incomingCollabReqs = collabReqs
       .filter((req:any) => req.type !== 'OUT')
@@ -269,7 +299,7 @@ class RecommendedPageContent extends Component<Props> {
            
           </TabPane>
           <TabPane tab="Активные сотрудничества" tabKey="3">
-            <Chat chats={this.state.chats} />
+            <Chat chats={chats} />
           </TabPane>
         </Tabs>
       </ div>
