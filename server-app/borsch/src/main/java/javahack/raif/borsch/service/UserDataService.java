@@ -10,6 +10,12 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис обработки запроса по предоставлению данных по сущности Пользователя.
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 @Service
 @RequiredArgsConstructor
 public class UserDataService {
@@ -19,8 +25,8 @@ public class UserDataService {
     public Set<UserCardDto> getUserCardsByUserId(UUID userId) {
         Set<UserCard> cards = userCardRepo.findByUserId(userId);
         return cards.stream()
-                .map(UserCardDto::new)
-                .collect(Collectors.toSet());
+            .map(UserCardDto::new)
+            .collect(Collectors.toSet());
 
     }
 

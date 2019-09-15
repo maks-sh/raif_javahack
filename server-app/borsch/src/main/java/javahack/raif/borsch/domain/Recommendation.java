@@ -7,9 +7,14 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.time.LocalDate;
 import java.util.Set;
 
+/**
+ * Сущность "Рекоммендация пользователя" с мета-описанием таблицы.
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 @Data
 @AllArgsConstructor
 @Table("recommendation")

@@ -18,6 +18,12 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис обработки запросов по предоставлению данных по Запросам на взаимодействие..
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 @Service
 @RequiredArgsConstructor
 public class CollaborationRequestDataService {
@@ -58,9 +64,9 @@ public class CollaborationRequestDataService {
                 UUID.randomUUID()
             ),
             LocalDate.now(),
+            text,
             userTo.get().getName(),
             userFrom.get().getName(),
-            text,
             CollaborationRequestStatus.PENDING,
             CollaborationRequestType.IN
         );
@@ -71,9 +77,9 @@ public class CollaborationRequestDataService {
                 UUID.randomUUID()
             ),
             LocalDate.now(),
-            userFrom.get().getName(),
-            userTo.get().getName(),
             text,
+            userTo.get().getName(),
+            userFrom.get().getName(),
             CollaborationRequestStatus.PENDING,
             CollaborationRequestType.OUT
         );

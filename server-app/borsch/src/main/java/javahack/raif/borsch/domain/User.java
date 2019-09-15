@@ -8,7 +8,12 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.UUID;
 
-
+/**
+ * Сущность "Пользователь" с мета-описанием таблицы.
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 @Data
 @AllArgsConstructor
 @Table("user")

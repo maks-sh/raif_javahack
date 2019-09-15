@@ -7,6 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Класс с генерируемыми на старте приложения данными по пользователям.
+ *
+ * @author denrus
+ * 15.09.2019
+ */
 @Service
 public class UserDataGenerator {
     public static List<User> USERS = Arrays.asList(

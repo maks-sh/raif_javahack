@@ -13,6 +13,7 @@ import javahack.raif.borsch.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -23,12 +24,22 @@ import static javahack.raif.borsch.service.init.data.CardTransactionsDataGenerat
 import static javahack.raif.borsch.service.init.data.RecommendationsDataGenerator.RECOMMENDATIONS;
 import static javahack.raif.borsch.service.init.data.UserDataGenerator.USERS;
 
+/**
+ * Бин для заполнения данными структуры БД при старте локально.
+ *
+ * @author denrus
+ * 15.09.2019
+ */
 @Component
+@Profile("local")
 @RequiredArgsConstructor
 public class DbDmInitService {
 
     private static final Logger LOG = LogManager.getLogger("borsch.logger");
 
+    /**
+     * Бин должен выполняться после инициализации структуры. Поэтому добавляем инициализацию структуры в зависимости.
+     */
     private final DbDdlInitService ddlInitService;
     private final UserRepo userRepo;
     private final UserCardRepo userCardRepo;
@@ -47,20 +58,20 @@ public class DbDmInitService {
             new User(USER_ID, "TODO", "Елена Жуковская")
         );
         userCardRepo.save(new UserCard(
-                new UserCardId(USER_ID, UUID.fromString("e06f64c7-cc15-486b-ba3b-bd90cc31dbcb")),
-                "4627 **** **** 1765",
-                "Основная",
-                LocalDate.now(),
-                120006.87,
-                FundType.RUB
+            new UserCardId(USER_ID, UUID.fromString("e06f64c7-cc15-486b-ba3b-bd90cc31dbcb")),
+            "4627 **** **** 1765",
+            "Основная",
+            LocalDate.now(),
+            120006.87,
+            FundType.RUB
         ));
         userCardRepo.save(new UserCard(
-                new UserCardId(USER_ID, UUID.fromString("aee85a4a-403b-4769-9090-cb0c1273966f")),
-                "5536 **** **** 1874",
-                "Для поездок",
-                LocalDate.now(),
-                1232.15,
-                FundType.RUB
+            new UserCardId(USER_ID, UUID.fromString("aee85a4a-403b-4769-9090-cb0c1273966f")),
+            "5536 **** **** 1874",
+            "Для поездок",
+            LocalDate.now(),
+            1232.15,
+            FundType.RUB
         ));
         for (CardTransaction thx : TRANSACTIONS) {
             transactionRepo.save(thx);

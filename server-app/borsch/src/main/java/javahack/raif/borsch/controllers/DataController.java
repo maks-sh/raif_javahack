@@ -27,6 +27,7 @@ import java.util.UUID;
 
 /**
  * Контроллер для передачи данных на клиент.
+ *
  * @author denrus
  * 15.09.2019
  */
@@ -55,8 +56,8 @@ public class DataController {
 
     @GetMapping("/user/{userId}/recommendations")
     public Set<RecommendationDto> getAllRecommendationsByUserIdWithLimit(
-            @PathVariable UUID userId,
-            @RequestParam(value = "limit", defaultValue = "5") Integer limit
+        @PathVariable UUID userId,
+        @RequestParam(value = "limit", defaultValue = "5") Integer limit
     ) {
         return recService.getAllRecommendationsByUserIdWithLimit(userId, limit);
     }
@@ -64,26 +65,27 @@ public class DataController {
 
     @GetMapping("/user/{userId}/collaborationRequests")
     public Set<CollaborationRequestDto> getAllCollabRequestsByUserId(
-            @PathVariable UUID userId
+        @PathVariable UUID userId
     ) {
         return colService.getCollaborationRequestsByUserId(userId);
     }
 
     @PutMapping("/user/{userId}/request/{userToId}")
     public String addCollaborationRequest(
-            @PathVariable UUID userId,
-            @PathVariable UUID userToId,
-            @RequestBody String text
+        @PathVariable UUID userId,
+        @PathVariable UUID userToId,
+        @RequestBody String text
 
     ) {
         return colService.addCollaborationRequest(userId, userToId, text);
     }
+
     @PatchMapping("/user/{userId}/request/{userToId}")
     public String addCollaborationRequest(
-            @PathVariable UUID userId,
-            @PathVariable UUID userToId,
-            @PathVariable UUID id,
-            @RequestParam CollaborationRequestStatus status
+        @PathVariable UUID userId,
+        @PathVariable UUID userToId,
+        @PathVariable UUID id,
+        @RequestParam CollaborationRequestStatus status
 
     ) {
         return colService.updateCollaborationStatusRequestById(status, userToId, userId, id).toString();
@@ -92,17 +94,17 @@ public class DataController {
 
     @GetMapping("/chat/{reqId}/user/{userId}")
     public Set<UserMessagesDto> getAllChatMessages(
-            @PathVariable UUID reqId,
-            @PathVariable UUID userId
+        @PathVariable UUID reqId,
+        @PathVariable UUID userId
     ) {
         return msgService.getChatMessagesByUserId(reqId, userId);
     }
 
     @PutMapping("/chat/{reqId}/user/{userId}/add")
     public String addMessageToChat(
-            @PathVariable UUID reqId,
-            @PathVariable UUID userId,
-            @RequestParam(value = "text") String text
+        @PathVariable UUID reqId,
+        @PathVariable UUID userId,
+        @RequestParam(value = "text") String text
     ) {
         return msgService.addMessageToChat(reqId, userId, text).toString();
     }

@@ -11,6 +11,12 @@ import java.util.List;
 import static javahack.raif.borsch.service.init.DbDmInitService.USER_ID;
 import static javahack.raif.borsch.service.init.data.UserDataGenerator.USERS;
 
+/**
+ * Класс с генерируемыми на старте приложения данными по рекоммендациям.
+ *
+ * @author denrus
+ * 15.09.2019
+ */
 public class RecommendationsDataGenerator {
     public static List<Recommendation> RECOMMENDATIONS = Arrays.asList(
         new Recommendation(

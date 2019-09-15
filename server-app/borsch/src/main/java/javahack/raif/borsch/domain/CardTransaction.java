@@ -14,6 +14,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Сущность "Транзакция карты" с мета-описанием таблицы.
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 @Data
 @AllArgsConstructor
 @Table("card_transaction")

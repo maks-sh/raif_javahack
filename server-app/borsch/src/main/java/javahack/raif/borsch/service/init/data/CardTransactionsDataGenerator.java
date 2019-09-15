@@ -11,6 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Класс с генерируемыми на старте приложения данными по "Транзакциям карт".
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 public class CardTransactionsDataGenerator {
     public static List<CardTransaction> TRANSACTIONS = Arrays.asList(
         new CardTransaction(

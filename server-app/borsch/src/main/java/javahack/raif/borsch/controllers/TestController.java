@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Тестовое апи.
+ *
  * @author denrus
  * 14.09.2019
  */
@@ -24,8 +25,6 @@ public class TestController {
         BORSCH_LOGGER.info("Лог и в консоль, и в файл");
         return "I`m ok";
     }
-
-
 
 
 }

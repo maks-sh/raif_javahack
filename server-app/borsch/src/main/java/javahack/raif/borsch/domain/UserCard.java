@@ -10,6 +10,12 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.time.LocalDate;
 
+/**
+ * Сущность "Карта пользователя" с мета-описанием таблицы.
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 @Data
 @AllArgsConstructor
 @Table("user_card")

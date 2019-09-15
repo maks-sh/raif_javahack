@@ -19,6 +19,12 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис обработки запросов по предоставлению данных по Картам пользователя.
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 @Service
 @RequiredArgsConstructor
 public class CardDataService {
@@ -28,8 +34,8 @@ public class CardDataService {
     public Set<CardTransactionDto> getCardTransactionsByCardId(UUID cardId) {
         Set<CardTransaction> transactions = transactionRepo.findByCardId(cardId);
         return transactions.stream()
-                .map(CardTransactionDto::new)
-                .collect(Collectors.toSet());
+            .map(CardTransactionDto::new)
+            .collect(Collectors.toSet());
     }
 
 }

@@ -13,6 +13,12 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис обработки запросов по предоставлению данных по Сообщениям чата.
+ *
+ * @author denrus
+ * 14.09.2019
+ */
 @Service
 @RequiredArgsConstructor
 public class ChatMessageDataService {
@@ -22,19 +28,19 @@ public class ChatMessageDataService {
     public Set<UserMessagesDto> getChatMessagesByUserId(UUID requestId, UUID userId) {
         Set<ChatMessage> userMsgs = chatRepo.findByUserId(requestId);
         return userMsgs.stream()
-                .map(obj -> new UserMessagesDto(obj, userId))
-                .collect(Collectors.toSet());
+            .map(obj -> new UserMessagesDto(obj, userId))
+            .collect(Collectors.toSet());
     }
 
     public UUID addMessageToChat(UUID reqId, UUID userId, String text) {
         ChatMessage msg = new ChatMessage(
-                new ChatMessageId(
-                        reqId,
-                        userId,
-                        UUIDs.timeBased()
-                ),
-                text,
-                LocalDateTime.now()
+            new ChatMessageId(
+                reqId,
+                userId,
+                UUIDs.timeBased()
+            ),
+            text,
+            LocalDateTime.now()
         );
         return chatRepo.save(msg).getId().getMsgId();
     }
