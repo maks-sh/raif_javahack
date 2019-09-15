@@ -32,6 +32,7 @@ yarn-error.log*
 #SERVER IGNORE
 HELP.md
 **/target/
+**/logs/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
