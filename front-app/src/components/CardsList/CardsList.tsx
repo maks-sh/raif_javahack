@@ -131,10 +131,11 @@ class CardsList extends Component<Props> {
                 // image={{
                 //   url: this.state.images[index],
                 // }}
-                header={rec.header}
+                // header={rec.header}
+                header={rec.headerComment}
                 headerComment={(
                 <div>
-                  {rec.headerComment}
+                  {rec.header}
                   <div className="card-tags">
                     {rec.tags && rec.tags.map((tag:any) => (
                       <Tag colorGroup={tag.type === 'advert' ? '1-5' : '2-2'}>{tag.text}</Tag>

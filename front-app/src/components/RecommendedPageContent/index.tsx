@@ -266,7 +266,7 @@ class RecommendedPageContent extends Component<Props> {
         >
           <TabPane tab="Новые рекомендации" tabKey="1">
             <div className="Header_32-40_Black">
-              Возможные поставщики&nbsp;&nbsp;
+              Возможные контрагенты&nbsp;&nbsp;
               <Badge count={this.state.recommended && this.state.recommended.length} />
             </div>
             <CardsList recommended={this.state.recommended} enrollCb={this.changeTab} />
@@ -276,7 +276,7 @@ class RecommendedPageContent extends Component<Props> {
             {
               !!outgoingCollabReqs.length
               && <>
-                <div className="Header_32-40_Black">
+                <div className="Header_32-40_Black" style={{marginBottom: 15}}>
                   Заявки, отправленные вами&nbsp;&nbsp;
                   <Badge count={outgoingCollabReqs.length} />
                 </div>
@@ -288,7 +288,7 @@ class RecommendedPageContent extends Component<Props> {
             {
               !!incomingCollabReqs.length
               && <>
-                <div className="Header_32-40_Black">
+                <div className="Header_32-40_Black" style={{marginBottom: 15}}>
                   Заявки от других предпринимателей&nbsp;&nbsp;
                   <Badge count={incomingCollabReqs.length} />
                 </div>
