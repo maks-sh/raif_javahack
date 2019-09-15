@@ -10,19 +10,52 @@
     </parent>
     <groupId>javahack.raif</groupId>
     <artifactId>borsch</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.9-SNAPSHOT</version>
     <name>borsch</name>
-    <description>Team BORSCH hackaton project</description>
+    <description>Проект команды BORSCH для Javahack2019. TODO краткое описание идеи и реализации.</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <cassandra.version>3.7.2</cassandra.version>
+        <cassandra-unit.version>3.11.2.0</cassandra-unit.version>
     </properties>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-data-cassandra</artifactId>-->
-        <!--</dependency>-->
+        <!--database-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-cassandra</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <version>${cassandra.version}</version>
+        </dependency>
+        <!--/database-->
+        <!--localDatabase-->
+        <dependency>
+            <groupId>org.cassandraunit</groupId>
+            <artifactId>cassandra-unit-spring</artifactId>
+            <version>${cassandra-unit.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.cassandraunit</groupId>
+                    <artifactId>cassandra-unit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.cassandraunit</groupId>
+            <artifactId>cassandra-unit-shaded</artifactId>
+            <version>${cassandra-unit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hectorclient</groupId>
+            <artifactId>hector-core</artifactId>
+            <version>2.0-0</version>
+        </dependency>
+        <!--/localDatabase-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
