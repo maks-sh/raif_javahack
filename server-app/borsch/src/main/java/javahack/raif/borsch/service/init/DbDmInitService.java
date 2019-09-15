@@ -1,12 +1,14 @@
 package javahack.raif.borsch.service.init;
 
 import javahack.raif.borsch.domain.CardTransaction;
+import javahack.raif.borsch.domain.CollaborationRequest;
 import javahack.raif.borsch.domain.Recommendation;
 import javahack.raif.borsch.domain.User;
 import javahack.raif.borsch.domain.UserCard;
 import javahack.raif.borsch.domain.ids.UserCardId;
 import javahack.raif.borsch.enums.FundType;
 import javahack.raif.borsch.repo.CardTransactionRepo;
+import javahack.raif.borsch.repo.CollaborationRequestRepo;
 import javahack.raif.borsch.repo.RecommendationRepo;
 import javahack.raif.borsch.repo.UserCardRepo;
 import javahack.raif.borsch.repo.UserRepo;
@@ -22,6 +24,7 @@ import java.util.UUID;
 
 import static javahack.raif.borsch.service.init.data.CardTransactionsDataGenerator.TRANSACTIONS;
 import static javahack.raif.borsch.service.init.data.RecommendationsDataGenerator.RECOMMENDATIONS;
+import static javahack.raif.borsch.service.init.data.RequestDataGenerator.REQUESTS;
 import static javahack.raif.borsch.service.init.data.UserDataGenerator.USERS;
 
 /**
@@ -45,8 +48,10 @@ public class DbDmInitService {
     private final UserCardRepo userCardRepo;
     private final CardTransactionRepo transactionRepo;
     private final RecommendationRepo recommendationRepo;
+    private final CollaborationRequestRepo requestRepo;
 
     public final static UUID USER_ID = UUID.fromString("743f885c-d740-11e9-8a34-2a2ae2dbcce4");
+    public final static String USER_NAME = "Елена Жуковская";
 
     @PostConstruct
     public void insertEntities() {
@@ -55,7 +60,7 @@ public class DbDmInitService {
         }
         //Инициализируем "основного" пользователя для демо
         userRepo.save(
-            new User(USER_ID, "TODO", "Елена Жуковская")
+            new User(USER_ID, "some_url", USER_NAME)
         );
         userCardRepo.save(new UserCard(
             new UserCardId(USER_ID, UUID.fromString("e06f64c7-cc15-486b-ba3b-bd90cc31dbcb")),
@@ -80,6 +85,9 @@ public class DbDmInitService {
 
         for (Recommendation rec : RECOMMENDATIONS) {
             recommendationRepo.save(rec);
+        }
+        for (CollaborationRequest request : REQUESTS) {
+            requestRepo.save(request);
         }
     }
 }

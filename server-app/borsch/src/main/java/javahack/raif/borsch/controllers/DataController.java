@@ -80,15 +80,16 @@ public class DataController {
         return colService.addCollaborationRequest(userId, userToId, text);
     }
 
-    @PatchMapping("/user/{userId}/request/{userToId}")
+    @PatchMapping("/user/{userId}/to/{userToId}/request/{id}")
     public String addCollaborationRequest(
         @PathVariable UUID userId,
         @PathVariable UUID userToId,
         @PathVariable UUID id,
-        @RequestParam CollaborationRequestStatus status
+        @RequestParam("status") CollaborationRequestStatus status
 
     ) {
-        return colService.updateCollaborationStatusRequestById(status, userToId, userId, id).toString();
+        colService.updateCollaborationStatusRequestById(status, userToId, userId, id);
+        return "OK";
     }
 
 
