@@ -26,6 +26,9 @@ public class Recommendation {
     @Column("comment")
     private String comment;
 
+    @Column("recommended_user_url")
+    private String recommendedUserUrl;
+
     @Column("tags")
     private Set<String> tags;
 }

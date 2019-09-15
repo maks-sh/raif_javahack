@@ -100,6 +100,7 @@ public class DbDmInitService {
                         "Petya",
                         "описываю",
                         "комментирую",
+                        "типа url",
                         Sets.newHashSet("тыц", "тыцтыц")
                 )
         );
@@ -114,6 +115,7 @@ public class DbDmInitService {
                         "Petya2",
                         "описываю2",
                         "комментирую2",
+                        "типа url2",
                         Sets.newHashSet("тыц2", "тыцтыц2")
                 )
         );
