@@ -27,12 +27,12 @@ public class UserDataGenerator {
             "ИП Хомченко Григорий Витальевич"
         ),
         new User(
-            UUID.randomUUID(),
+            UUID.fromString("fcef489d-21df-4c99-85a6-010dcf70e643"),
             "https://sun9-43.userapi.com/c850636/v850636301/16866e/m8toVEJ-OSg.jpg?ava=1",
             "ООО БухФинанс"
         ),
         new User(
-            UUID.randomUUID(),
+            UUID.fromString("9856aa79-ad02-41d3-9a66-8a919895df48"),
             "https://sun9-62.userapi.com/c850616/v850616623/15d5c1/WCeH3alm-ts.jpg?ava=1",
             "ИП Ермолаев Петр Константинович"
         ),

@@ -31,10 +31,11 @@ public class RequestDataGenerator {
             new CollaborationRequestId(
                 USER_ID,
                 USERS.get(2).getId(),
-                UUID.randomUUID()
+                UUID.fromString("e9d47670-7526-4707-aec4-0f4b6dc01059")
             ),
             LocalDate.of(2019, 9, 14),
-            "Давайте сотрудничать",
+            "Здравствуйте! Я представляю \"ООО БухФинанс\". Наша компания предоставляет услуги по " +
+                "бухгалтерскому учету. Напишите, пожалуйста, если Вам интересно сотрудничество - пишите",
             USER_NAME,
             USERS.get(2).getName(),
             CollaborationRequestStatus.PENDING,
@@ -45,10 +46,11 @@ public class RequestDataGenerator {
             new CollaborationRequestId(
                 USER_ID,
                 USERS.get(3).getId(),
-                UUID.randomUUID()
+                UUID.fromString("c74efc8f-4d6b-4b59-a6ae-a758133fa7c0")
             ),
             LocalDate.of(2019, 9, 13),
-            "Не хотите посотрудничать?",
+            "Добрый день! Я - директор небольшой лавки \"Припекло\", хочу обсудить с Вами возможность продажи Ваших " +
+                "тортов у нас. Если Вас интересует сотрудничество - пишите.",
             USER_NAME,
             USERS.get(3).getName(),
             CollaborationRequestStatus.PENDING,

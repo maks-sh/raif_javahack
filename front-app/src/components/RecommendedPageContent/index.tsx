@@ -221,7 +221,7 @@ class RecommendedPageContent extends Component<Props> {
   makeChats = (collabRequests: any) => {
     let chats:any = [];
     console.log('collabRequests', collabRequests);
-    chats = collabRequests.map((req:any) => {
+    chats = collabRequests && collabRequests.map((req:any) => {
       if (req.status === 'ACCEPTED') {
         return ({
           id: req.id,
